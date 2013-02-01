@@ -6,16 +6,16 @@ type Stack struct {
 }
 
 type StackItem struct {
-	value *interface{}
+	value interface{}
 	next  *StackItem
 }
 
-func (s *Stack) Push(value *interface{}) {
+func (s *Stack) Push(value interface{}) {
 	s.top = &StackItem{value, s.top}
 	s.size++
 }
 
-func (s *Stack) Pop() (value *interface{}) {
+func (s *Stack) Pop() (value interface{}) {
 	if s.size == 0 {
 		return
 	}
