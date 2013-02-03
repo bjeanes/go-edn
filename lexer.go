@@ -1,15 +1,13 @@
 package edn
 
-import (
-	"fmt"
-)
+import "fmt"
 
 // A lot of this is based on: http://cuddle.googlecode.com/hg/talk/lex.html
 
 type tokenType int
 
 const (
-	tEOF tokenType = iota
+	tEOF tokenType = 1 << iota
 	tRightParen
 	tLeftParen
 	tRightBrace
@@ -57,6 +55,7 @@ type lexer struct {
 
 // Lexer states:
 func lex(l *lexer) stateFn {
+	l.emit(tEOF)
 	return nil
 }
 
@@ -74,12 +73,17 @@ func (l *lexer) emit(tt tokenType) {
 	l.tokens <- token{kind: tt, value: value}
 }
 
-func Lex(input string) (l *lexer) {
-	l = &lexer{
+func (l *lexer) Next() (t token, more bool) {
+	t, more = <-l.tokens
+	return
+}
+
+func Lex(input string) *lexer {
+	l := &lexer{
 		input:  input,
-		tokens: make(chan token),
+		tokens: make(chan token, 100),
 	}
 
 	go l.run()
-	return
+	return l
 }
