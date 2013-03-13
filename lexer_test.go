@@ -22,3 +22,22 @@ func TestEmptyIsDoneAfterFirstToken(t *T) {
 		t.Error("expecting no more tokens")
 	}
 }
+
+func TestOpenCloseParens(t *T) {
+	lexer := Lex("()")
+
+	token, _ := lexer.Next()
+	if token.kind != tOpenParen {
+		t.Error("expecting open parenthesis")
+	}
+
+	token, _ = lexer.Next()
+	if token.kind != tCloseParen {
+		t.Error("expecting close parenthesis")
+	}
+
+	token, _ = lexer.Next()
+	if token.kind != tEOF {
+		t.Error("expecting EOF")
+	}
+}
