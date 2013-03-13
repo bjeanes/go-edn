@@ -1,6 +1,7 @@
 package edn
 
 import "fmt"
+import "strings"
 
 // A lot of this is based on: http://cuddle.googlecode.com/hg/talk/lex.html
 
@@ -26,8 +27,6 @@ const (
 	tError
 )
 
-type stateFn func(*lexer) stateFn
-
 type token struct {
 	kind  tokenType
 	value string
@@ -48,19 +47,23 @@ func (t *token) String() string {
 
 type lexer struct {
 	input    string
+	reader   *strings.Reader
 	start    int
 	position int
 	tokens   chan token
 }
 
-// Lexer states:
-func lex(l *lexer) stateFn {
-	l.emit(tEOF)
-	return nil
+type stateFn func(*lexer) stateFn
+
+var stateFns map[string]stateFn = map[string]stateFn{
+	"start": func(l *lexer) stateFn {
+		l.emit(tEOF)
+		return nil
+	},
 }
 
 func (l *lexer) run() {
-	for t := lex; t != nil; {
+	for t := stateFns["start"]; t != nil; {
 		t = t(l)
 	}
 
@@ -81,6 +84,7 @@ func (l *lexer) Next() (t token, more bool) {
 func Lex(input string) *lexer {
 	l := &lexer{
 		input:  input,
+		reader: strings.NewReader(input),
 		tokens: make(chan token, 100),
 	}
 
