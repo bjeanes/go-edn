@@ -8,12 +8,12 @@ type tokenType int
 
 const (
 	tEOF tokenType = 1 << iota
-	tRightParen
-	tLeftParen
-	tRightBrace
-	tLeftBrace
-	tRightBracket
-	tLeftBracket
+	tOpenParen
+	tCloseParen
+	tOpenBrace
+	tCloseBrace
+	tOpenBracket
+	tCloseBracket
 	tSingleQuote
 	tDoubleQuote
 	tSymbol
