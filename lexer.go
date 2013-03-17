@@ -61,11 +61,11 @@ func (l *lexer) peek() (ch rune, size int, err error) {
 
 type stateFn func(*lexer) stateFn
 
-var stateFns map[string]stateFn = map[string]stateFn{}
+var stateFns map[rune]stateFn = map[rune]stateFn{}
 
 func init() {
-	stateFns["start"] = func(l *lexer) stateFn {
-		defaultFn := stateFns["start"]
+	stateFns[0] = func(l *lexer) stateFn {
+		defaultFn := stateFns[0]
 
 		if (l.reader.Len() > 0) {
 			ch, _, err := l.reader.ReadRune()
@@ -91,7 +91,7 @@ func init() {
 }
 
 func (l *lexer) run() {
-	for t := stateFns["start"]; t != nil; {
+	for t := stateFns[0]; t != nil; {
 		t = t(l)
 	}
 
