@@ -53,13 +53,41 @@ type lexer struct {
 	tokens   chan token
 }
 
+func (l *lexer) peek() (ch rune, size int, err error) {
+	ch, size, err = l.reader.ReadRune()
+	l.reader.UnreadRune()
+	return
+}
+
 type stateFn func(*lexer) stateFn
 
-var stateFns map[string]stateFn = map[string]stateFn{
-	"start": func(l *lexer) stateFn {
+var stateFns map[string]stateFn = map[string]stateFn{}
+
+func init() {
+	stateFns["start"] = func(l *lexer) stateFn {
+		defaultFn := stateFns["start"]
+
+		if (l.reader.Len() > 0) {
+			ch, _, err := l.reader.ReadRune()
+
+			if(err != nil) {
+				return nil
+			}
+
+			switch ch {
+				default: return defaultFn
+				case '(':
+					l.emit(tOpenParen)
+					return defaultFn
+				case ')':
+					l.emit(tCloseParen)
+					return defaultFn
+			}
+		}
+
 		l.emit(tEOF)
 		return nil
-	},
+	}
 }
 
 func (l *lexer) run() {
