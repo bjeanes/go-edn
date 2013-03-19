@@ -27,12 +27,12 @@ func TestOpenCloseParens(t *T) {
 	lexer := Lex("()")
 
 	token, _ := lexer.Next()
-	if token.kind != tOpenParen {
+	if token.kind != tOpenParen || token.value != "(" {
 		t.Error("expecting open parenthesis")
 	}
 
 	token, _ = lexer.Next()
-	if token.kind != tCloseParen {
+	if token.kind != tCloseParen || token.value != ")"  {
 		t.Error("expecting close parenthesis")
 	}
 

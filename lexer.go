@@ -59,9 +59,12 @@ func lexEDN(l *lexer) {
 }
 
 func lexList(l *lexer) {
-	l.reader.ReadRune()
+	l.read()
 	l.emit(tOpenParen)
+
 	lexEDN(l)
+
+	l.read()
 	l.emit(tCloseParen)
 }
 
@@ -76,6 +79,12 @@ type lexer struct {
 func (l *lexer) peek() (ch rune, size int, err error) {
 	ch, size, err = l.reader.ReadRune()
 	l.reader.UnreadRune()
+	return
+}
+
+func (l *lexer) read() (ch rune, size int, err error) {
+	ch, size, err = l.reader.ReadRune()
+	l.position += size
 	return
 }
 
