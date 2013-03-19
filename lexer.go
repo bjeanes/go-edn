@@ -55,7 +55,47 @@ func lexEDN(l *lexer) {
 	switch ch {
 	case '(':
 		lexList(l)
+	case '[':
+		lexVector(l)
+	case '{':
+		lexMap(l)
+	default:
+		// TODO: proper error handling
+		panic("Unexpected character " + fmt.Sprintf("'%c'", ch))
 	}
+}
+
+func lexVector(l *lexer) {
+	l.read()
+	l.emit(tOpenBracket)
+
+	for {
+		ch, _, _ := l.peek()
+		if ch == ']' {
+			break
+		}
+		lexEDN(l)
+	}
+
+	l.read()
+	l.emit(tCloseBracket)
+}
+
+func lexMap(l *lexer) {
+	l.read()
+	l.emit(tOpenBrace)
+
+	for {
+		ch, _, _ := l.peek()
+		if ch == '}' {
+			break
+		}
+		lexEDN(l) // key
+		lexEDN(l) // value
+	}
+
+	l.read()
+	l.emit(tCloseBrace)
 }
 
 func lexList(l *lexer) {
