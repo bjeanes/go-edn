@@ -62,7 +62,13 @@ func lexList(l *lexer) {
 	l.read()
 	l.emit(tOpenParen)
 
-	lexEDN(l)
+	for {
+		ch, _, _ := l.peek()
+		if ch == ')' {
+			break
+		}
+		lexEDN(l)
+	}
 
 	l.read()
 	l.emit(tCloseParen)
