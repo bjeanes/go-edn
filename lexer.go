@@ -2,6 +2,7 @@ package edn
 
 import "fmt"
 import "strings"
+import "unicode"
 
 // A lot of this is based on: http://cuddle.googlecode.com/hg/talk/lex.html
 
@@ -45,73 +46,53 @@ func (t *token) String() string {
 	panic("unreachable")
 }
 
+func isWhitespace(ch rune) bool {
+	return unicode.IsSpace(ch) || ch == ','
+}
+
 func lexEDN(l *lexer) {
-	ch, _, err := l.peek()
-
-	if err != nil {
-		return
-	}
-
-	switch ch {
-	case '(':
-		lexList(l)
-	case '[':
-		lexVector(l)
-	case '{':
-		lexMap(l)
-	default:
-		// TODO: proper error handling
-		panic("Unexpected character " + fmt.Sprintf("'%c'", ch))
-	}
-}
-
-func lexVector(l *lexer) {
-	l.read()
-	l.emit(tOpenBracket)
-
 	for {
-		ch, _, _ := l.peek()
-		if ch == ']' {
-			break
+		ch, _, err := l.read()
+
+		if err != nil {
+			l.emit(tEOF)
+			return
 		}
-		lexEDN(l)
-	}
 
-	l.read()
-	l.emit(tCloseBracket)
-}
+		switch ch {
 
-func lexMap(l *lexer) {
-	l.read()
-	l.emit(tOpenBrace)
+		case '(':
+			l.emit(tOpenParen)
+		case '[':
+			l.emit(tOpenBracket)
+		case '{':
+			l.emit(tOpenBrace)
+		case ')':
+			l.emit(tCloseParen)
+		case ']':
+			l.emit(tCloseBracket)
+		case '}':
+			l.emit(tCloseBrace)
 
-	for {
-		ch, _, _ := l.peek()
-		if ch == '}' {
-			break
+			// whitespace
+		case '\t':
+			fallthrough
+		case ',':
+			fallthrough
+		case ' ':
+			for {
+				ch, size, _ := l.read()
+				if !isWhitespace(ch) {
+					l.unread(size)
+					break
+				}
+			}
+			l.emit(tWhitespace)
+		default:
+			// TODO: proper error handling
+			panic("Unexpected character " + fmt.Sprintf("'%c'", ch))
 		}
-		lexEDN(l) // key
-		lexEDN(l) // value
 	}
-
-	l.read()
-	l.emit(tCloseBrace)
-}
-
-func lexList(l *lexer) {
-	l.read()
-	l.emit(tOpenParen)
-
-	for {
-		ch, _, _ := l.peek()
-		if ch == ')' {
-			break
-		}
-		lexEDN(l)
-	}
-
-	l.read()
-	l.emit(tCloseParen)
 }
 
 type lexer struct {
@@ -123,9 +104,14 @@ type lexer struct {
 }
 
 func (l *lexer) peek() (ch rune, size int, err error) {
-	ch, size, err = l.reader.ReadRune()
-	l.reader.UnreadRune()
+	ch, size, err = l.read()
+	l.unread(size)
 	return
+}
+
+func (l *lexer) unread(size int) {
+	l.reader.UnreadRune()
+	l.position -= size
 }
 
 func (l *lexer) read() (ch rune, size int, err error) {
@@ -136,7 +122,6 @@ func (l *lexer) read() (ch rune, size int, err error) {
 
 func (l *lexer) run() {
 	lexEDN(l)
-	l.emit(tEOF)
 	close(l.tokens)
 }
 
