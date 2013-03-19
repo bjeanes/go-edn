@@ -45,6 +45,26 @@ func (t *token) String() string {
 	panic("unreachable")
 }
 
+func lexEDN(l *lexer) {
+	ch, _, err := l.peek()
+
+	if err != nil {
+		return
+	}
+
+	switch ch {
+	case '(':
+		lexList(l)
+	}
+}
+
+func lexList(l *lexer) {
+	l.reader.ReadRune()
+	l.emit(tOpenParen)
+	lexEDN(l)
+	l.emit(tCloseParen)
+}
+
 type lexer struct {
 	input    string
 	reader   *strings.Reader
@@ -59,42 +79,9 @@ func (l *lexer) peek() (ch rune, size int, err error) {
 	return
 }
 
-type stateFn func(*lexer) stateFn
-
-var stateFns map[rune]stateFn = map[rune]stateFn{}
-
-func init() {
-	stateFns[0] = func(l *lexer) stateFn {
-		defaultFn := stateFns[0]
-
-		if (l.reader.Len() > 0) {
-			ch, _, err := l.reader.ReadRune()
-
-			if(err != nil) {
-				return nil
-			}
-
-			switch ch {
-				default: return defaultFn
-				case '(':
-					l.emit(tOpenParen)
-					return defaultFn
-				case ')':
-					l.emit(tCloseParen)
-					return defaultFn
-			}
-		}
-
-		l.emit(tEOF)
-		return nil
-	}
-}
-
 func (l *lexer) run() {
-	for t := stateFns[0]; t != nil; {
-		t = t(l)
-	}
-
+	lexEDN(l)
+	l.emit(tEOF)
 	close(l.tokens)
 }
 
