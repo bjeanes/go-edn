@@ -70,13 +70,12 @@ func lexEDN(l *lexer) {
 			l.emit(tCloseBracket)
 		case '}':
 			l.emit(tCloseBrace)
-
-			// whitespace
-		case '\t':
-			fallthrough
-		case ',':
-			fallthrough
-		case ' ':
+		case ':': // keyword
+		case '\'': // quote
+		case '#': // ...
+		case '"': // string
+		case ';': // comment
+		case '\t', ',', ' ': // whitespace
 			for {
 				ch, size, _ := l.read()
 				if !isWhitespace(ch) {
@@ -86,6 +85,9 @@ func lexEDN(l *lexer) {
 			}
 			l.emit(tWhitespace)
 		default:
+
+			// case '':   // symbol
+			// case '':   // number
 			// TODO: proper error handling
 			panic("Unexpected character " + fmt.Sprintf("'%c'", ch))
 		}
