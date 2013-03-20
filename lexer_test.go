@@ -18,9 +18,9 @@ func assertLexerYieldsCorrectTokens(
 		t.Errorf("Got %d tokens, expecting %d", len(tokens), len(types))
 	}
 
-	for i, actual := range(tokens) {
+	for i, actual := range tokens {
 		expected := token{
-			kind: types[i],
+			kind:  types[i],
 			value: values[i],
 		}
 
@@ -49,4 +49,16 @@ func TestOpenCloseParens(t *T) {
 		"()",
 		tokens(tOpenParen, tCloseParen, tEOF),
 		values("(", ")", ""))
+}
+
+func TestComplex(t *T) {
+	assertLexerYieldsCorrectTokens(t,
+		"(1, 24223 {[5] \"abc\"} '())",
+		tokens(
+			tOpenParen, tNumber, tNumber, tOpenBrace,
+			tOpenBracket, tNumber, tCloseBracket, tString,
+			tCloseBrace, tQuoteNextForm, tOpenParen,
+			tCloseParen, tCloseParen, tEOF),
+		values("(", "1", "24223", "{", "[", "5", "]", "\"abc\"",
+			"}", "'", "(", ")", ")", ""))
 }

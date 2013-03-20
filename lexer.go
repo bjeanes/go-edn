@@ -71,9 +71,18 @@ func lexEDN(l *lexer) {
 		case '}':
 			l.emit(tCloseBrace)
 		case ':': // keyword
-		case '\'': // quote
+		case '\'': l.emit(tQuoteNextForm)
 		case '#': // ...
-		case '"': // string
+		case '"':
+			for {
+				// FIXME: strings with \"
+				ch, _, _ := l.read()
+				if ch == '"' {
+					break
+				}
+			}
+
+			l.emit(tString)
 		case ';': // comment
 		case '\t', ',', ' ': // whitespace
 			for {
@@ -83,13 +92,25 @@ func lexEDN(l *lexer) {
 					break
 				}
 			}
-			l.emit(tWhitespace)
+			// l.emit(tWhitespace)
+			l.start = l.position // Temporarily ignore whitespace
 		default:
+			switch {
+				case unicode.IsNumber(ch):
+					// TODO: non integer numbers...
+					for {
+						ch, size, _ := l.read()
+						if !unicode.IsNumber(ch) {
+							l.unread(size)
+							break
+						}
+					}
+					l.emit(tNumber)
+			default:
+				// TODO: proper error handling
+				panic("Unexpected character " + fmt.Sprintf("'%c'", ch))
+			}
 
-			// case '':   // symbol
-			// case '':   // number
-			// TODO: proper error handling
-			panic("Unexpected character " + fmt.Sprintf("'%c'", ch))
 		}
 	}
 }
