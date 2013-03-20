@@ -55,12 +55,10 @@ func lexEDN(l *lexer) {
 		ch, _, err := l.read()
 
 		if err != nil {
-			l.emit(tEOF)
 			return
 		}
 
 		switch ch {
-
 		case '(':
 			l.emit(tOpenParen)
 		case '[':
@@ -122,6 +120,7 @@ func (l *lexer) read() (ch rune, size int, err error) {
 
 func (l *lexer) run() {
 	lexEDN(l)
+	l.emit(tEOF)
 	close(l.tokens)
 }
 
