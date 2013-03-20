@@ -2,42 +2,51 @@ package edn
 
 import . "testing"
 
-func TestEmptyGivesOnlyEOF(t *T) {
-	lexer := Lex("")
-	token, _ := lexer.Next()
+func assertLexerYieldsCorrectTokens(
+	t *T,
+	source string,
+	types []tokenType,
+	values []string) {
 
-	if token.kind != tEOF {
-		t.Error("expecting EOF")
+	tokens := make([]token, 0)
+
+	for token := range Lex(source).tokens {
+		tokens = append(tokens, token)
+	}
+
+	if len(tokens) != len(types) {
+		t.Errorf("Got %d tokens, expecting %d", len(tokens), len(types))
+	}
+
+	for i, actual := range(tokens) {
+		expected := token{
+			kind: types[i],
+			value: values[i],
+		}
+
+		if actual != expected {
+			t.Errorf("Expecting %#v; actual %#v", expected, actual)
+		}
 	}
 }
 
-// I suspect there's a potential race condition here first since
-// the lexer is in a different thread. If `Next()` is called while the lexer
-// is still in its main `for{}` loop, `done` could still be `false`
-func TestEmptyIsDoneAfterFirstToken(t *T) {
-	lexer := Lex("")
-	_, done := lexer.Next()
+func tokens(tokens ...tokenType) []tokenType {
+	return tokens
+}
+func values(values ...string) []string {
+	return values
+}
 
-	if !done {
-		t.Error("expecting no more tokens")
-	}
+func TestEmptyGivesOnlyEOF(t *T) {
+	assertLexerYieldsCorrectTokens(t,
+		"",
+		tokens(tEOF),
+		values(""))
 }
 
 func TestOpenCloseParens(t *T) {
-	lexer := Lex("()")
-
-	token, _ := lexer.Next()
-	if token.kind != tOpenParen || token.value != "(" {
-		t.Error("expecting open parenthesis")
-	}
-
-	token, _ = lexer.Next()
-	if token.kind != tCloseParen || token.value != ")"  {
-		t.Error("expecting close parenthesis")
-	}
-
-	token, _ = lexer.Next()
-	if token.kind != tEOF {
-		t.Error("expecting EOF")
-	}
+	assertLexerYieldsCorrectTokens(t,
+		"()",
+		tokens(tOpenParen, tCloseParen, tEOF),
+		values("(", ")", ""))
 }
