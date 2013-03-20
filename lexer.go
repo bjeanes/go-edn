@@ -16,11 +16,10 @@ const (
 	tCloseBrace
 	tOpenBracket
 	tCloseBracket
-	tSingleQuote
-	tDoubleQuote
+	tQuoteNextForm
+	tString
 	tSymbol
 	tKeyword
-	tString
 	tNumber
 	tWhitespace // needed?
 	tComment    // needed?
