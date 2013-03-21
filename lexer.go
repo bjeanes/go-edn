@@ -33,7 +33,7 @@ const (
 
 const (
 	numberRegex = "[+-]?(0|[1-9]\\d*)"
-	stringRegex = "\"(\\\\\"|[^\"\\\\])*?\""
+	stringRegex = "\"(\\\\\"|[^\"\\\\])*?\"" // TODO: do multiline strings work?
 )
 
 type token struct {
