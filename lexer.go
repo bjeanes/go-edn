@@ -17,10 +17,13 @@ const (
 	tOpenBracket
 	tCloseBracket
 	tQuoteNextForm
+	tOpenSet
 	tString
 	tSymbol
 	tKeyword
 	tNumber
+	tMetadata
+	tIgnoreNextForm
 	tWhitespace // needed?
 	tComment    // needed?
 
@@ -71,8 +74,21 @@ func lexEDN(l *lexer) {
 		case '}':
 			l.emit(tCloseBrace)
 		case ':': // keyword
+			// TODO: Read keyword value
+			l.emit(tKeyword)
 		case '\'': l.emit(tQuoteNextForm)
+		case '^': l.emit(tMetadata)
 		case '#': // ...
+			ch, _, _ := l.read()
+
+			switch ch {
+				case '_':
+					l.emit(tIgnoreNextForm)
+				case '{':
+					l.emit(tOpenSet)
+				case '^':
+					l.emit(tMetadata)
+			}
 		case '"':
 			for {
 				// FIXME: strings with \"
