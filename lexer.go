@@ -124,8 +124,15 @@ func lexEDN(l *lexer) {
 			l.emit(tNumber)
 		default:
 			// TODO: proper error handling
-			panic("Unexpected character " + fmt.Sprintf("'%c'", ch))
+			pad := ""
+			for i := 0; i < l.position; i++ {
+				pad = pad + " "
+			}
 
+			err := "Unexpected character " + fmt.Sprintf("'%c'", ch) + ":\n\n" +
+			    // TODO only show the current line of input
+				l.input + "\n" + pad + "^"
+			panic(err)
 		}
 	}
 }
