@@ -100,8 +100,16 @@ func lexEDN(l *lexer) {
 		case '"':
 			l.readWhileRegexpMatch(stringRegex)
 			l.emit(tString)
-		case ';': // comment
-		case '\t', ',', ' ': // whitespace
+		case ';':
+			for {
+				ch, _, _ := l.read()
+				if ch == '\n' {
+					l.unread()
+					break
+				}
+			}
+			l.emit(tComment)
+		case '\t', '\n', ',', ' ': // whitespace
 			for {
 				ch, _, _ := l.read()
 				if !isWhitespace(ch) {
