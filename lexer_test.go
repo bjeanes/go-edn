@@ -8,6 +8,11 @@ func assertLexerYieldsCorrectTokens(
 	types []tokenType,
 	values []string) {
 
+	if len(types) != len(values) {
+		t.Error("Expecting equal number of types and values")
+		return
+	}
+
 	tokens := make([]token, 0)
 
 	for token := range Lex(source).tokens {
@@ -16,6 +21,7 @@ func assertLexerYieldsCorrectTokens(
 
 	if len(tokens) != len(types) {
 		t.Errorf("Got %d tokens, expecting %d", len(tokens), len(types))
+		return
 	}
 
 	for i, actual := range tokens {
