@@ -33,7 +33,7 @@ const (
 
 const (
 	numberRegex = "[+-]?(0|[1-9]\\d*)"
-	stringRegex =  "\"[^\"]*?\""
+	stringRegex = "\"(\\\\\"|[^\"\\\\])*?\""
 )
 
 type token struct {
