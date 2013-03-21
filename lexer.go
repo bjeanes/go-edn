@@ -98,7 +98,7 @@ func lexEDN(l *lexer) {
 				l.emit(tMetadata)
 			}
 		case '"':
-			l.readWhileRegexpMatch(stringRegex)
+			l.readTokenMatchingRegexp(stringRegex)
 			l.emit(tString)
 		case ';':
 			for {
@@ -122,7 +122,7 @@ func lexEDN(l *lexer) {
 		default:
 			switch {
 			case ch == '+' || ch == '-' || unicode.IsNumber(ch):
-				l.readWhileRegexpMatch(numberRegex)
+				l.readTokenMatchingRegexp(numberRegex)
 				l.emit(tNumber)
 			default:
 				// TODO: proper error handling
@@ -162,14 +162,14 @@ func (l *lexer) read() (ch rune, size int, err error) {
 	return
 }
 
-func (l *lexer) readWhileRegexpMatch(regexp string) {
+func (l *lexer) readTokenMatchingRegexp(regexp string) {
 	regexp = "^" + regexp
 	reg, err := re.Compile(regexp)
 	if err != nil {
 		panic("Invalid regex: " + regexp)
 	}
 
-	indexes := reg.FindStringIndex(l.input[l.position - 1:])
+	indexes := reg.FindStringIndex(l.input[l.position-1:])
 
 	if indexes == nil {
 		panic("No match")
@@ -180,7 +180,7 @@ func (l *lexer) readWhileRegexpMatch(regexp string) {
 		panic("Unexpected regex match")
 	}
 
-	for i := 0; i < indexes[1] - 1; i++ {
+	for i := 0; i < indexes[1]-1; i++ {
 		l.read()
 	}
 }
