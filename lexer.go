@@ -116,7 +116,7 @@ func lexEDN(l *lexer) {
 		default:
 			switch {
 			case ch == '+' || ch == '-' || unicode.IsNumber(ch):
-				l.readWhileRegexpMatch("(0|[1-9]\\d*)")
+				l.readWhileRegexpMatch("[+-]?(0|[1-9]\\d*)")
 				l.emit(tNumber)
 			default:
 				// TODO: proper error handling

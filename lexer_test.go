@@ -59,12 +59,12 @@ func TestOpenCloseLists(t *T) {
 
 func TestComplex(t *T) {
 	assertLexerYieldsCorrectTokens(t,
-		"(1, 24223 {[5] \"abc\"} '())",
+		"(1, 24223 0 -4 {[5] \"abc\"} '())",
 		tokens(
-			tOpenList, tNumber, tNumber, tOpenMap,
-			tOpenVector, tNumber, tCloseVector, tString,
+			tOpenList, tNumber, tNumber, tNumber, tNumber,
+			tOpenMap, tOpenVector, tNumber, tCloseVector, tString,
 			tCloseMapOrSet, tQuoteNextForm, tOpenList,
 			tCloseList, tCloseList, tEOF),
-		values("(", "1", "24223", "{", "[", "5", "]", "\"abc\"",
-			"}", "'", "(", ")", ")", ""))
+		values("(", "1", "24223", "0", "-4", "{", "[", "5", "]",
+			"\"abc\"", "}", "'", "(", ")", ")", ""))
 }
