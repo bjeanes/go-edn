@@ -33,6 +33,7 @@ const (
 
 const (
 	numberRegex = "[+-]?(0|[1-9]\\d*)"
+	stringRegex =  "\"[^\"]*?\""
 )
 
 type token struct {
@@ -97,14 +98,7 @@ func lexEDN(l *lexer) {
 				l.emit(tMetadata)
 			}
 		case '"':
-			for {
-				// FIXME: strings with \"
-				ch, _, _ := l.read()
-				if ch == '"' {
-					break
-				}
-			}
-
+			l.readWhileRegexpMatch(stringRegex)
 			l.emit(tString)
 		case ';': // comment
 		case '\t', ',', ' ': // whitespace
