@@ -32,7 +32,7 @@ const (
 )
 
 const (
-	numberRegex = "[+-]?(0|[1-9]\\d*)"
+	numberRegex = "[+-]?(0|[1-9]\\d*)(\\.\\d+)?"
 	stringRegex = "\"(\\\\\"|[^\"\\\\])*?\"" // TODO: do multiline strings work?
 )
 
