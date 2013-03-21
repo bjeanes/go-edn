@@ -22,6 +22,7 @@ String ::= '"' UTF8Char* '"'                                 /* TODO: define UTF
 Character ::= "\" (Alphabetic | "newline" | "tab" | "return" | "space") /* numbers? */
 
 /* Numbers */
+/* TODO: does EDN support hex/octal/binary? */
 NonZeroDigit ::= "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
 ZeroDigit ::= "0"
 Digit ::= ZeroDigit | NonZeroDigit
