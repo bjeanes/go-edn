@@ -26,7 +26,7 @@ const (
 	tMetadata
 	tIgnoreNextForm
 	tWhitespace // needed?
-	tComment    // needed?
+	tComment
 
 	tError
 )
