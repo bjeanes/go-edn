@@ -3,6 +3,7 @@ package edn
 import "fmt"
 import "strings"
 import "unicode"
+import re "regexp"
 
 // A lot of this is based on: http://cuddle.googlecode.com/hg/talk/lex.html
 
@@ -115,14 +116,7 @@ func lexEDN(l *lexer) {
 		default:
 			switch {
 			case ch == '+' || ch == '-' || unicode.IsNumber(ch):
-				// TODO: non integer numbers...
-				for {
-					ch, size, _ := l.read()
-					if !unicode.IsNumber(ch) {
-						l.unread(size)
-						break
-					}
-				}
+				l.readWhileRegexpMatch("(0|[1-9]\\d*)")
 				l.emit(tNumber)
 			default:
 				// TODO: proper error handling
@@ -162,14 +156,39 @@ func (l *lexer) read() (ch rune, size int, err error) {
 	return
 }
 
+// TODO: This could use FindStringIndex or FindReaderIndex (if we can reliably
+// seek reader to correct position after)
+func (l *lexer) readWhileRegexpMatch(regexp string) {
+	for {
+		value := l.nextValue()
+		regexp = "^" + regexp + "$"
+		matched, err := re.MatchString(regexp, value)
+
+		if err != nil {
+			panic("I don't know what kinds of errors can happen yet")
+		}
+
+		if matched {
+			_, _, _ = l.read()
+		} else {
+			l.unread()
+			break
+		}
+	}
+}
+
 func (l *lexer) run() {
 	lexEDN(l)
 	l.emit(tEOF)
 	close(l.tokens)
 }
 
+func (l *lexer) nextValue() string {
+	return l.input[l.start:l.position]
+}
+
 func (l *lexer) emit(tt tokenType) {
-	value := l.input[l.start:l.position]
+	value := l.nextValue()
 	l.start = l.position
 	l.tokens <- token{kind: tt, value: value}
 }
