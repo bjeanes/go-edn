@@ -166,11 +166,11 @@ func (l *lexer) read() (ch rune, size int, err error) {
 	return
 }
 
-func (l *lexer) readTokenMatchingRegexp(regexp string) {
-	regexp = "^" + regexp
-	reg, err := re.Compile(regexp)
+func (l *lexer) readTokenMatchingRegexp(pattern string) {
+	pattern = "^" + pattern
+	reg, err := re.Compile(pattern)
 	if err != nil {
-		panic("Invalid regex: " + regexp)
+		panic("Invalid regex: " + pattern)
 	}
 
 	indexes := reg.FindStringIndex(l.input[l.position-1:])
