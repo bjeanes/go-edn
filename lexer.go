@@ -114,7 +114,7 @@ func lexEDN(l *lexer) {
 			l.start = l.position // Temporarily ignore whitespace
 		default:
 			switch {
-			case unicode.IsNumber(ch):
+			case ch == '+' || ch == '-' || unicode.IsNumber(ch):
 				// TODO: non integer numbers...
 				for {
 					ch, size, _ := l.read()
