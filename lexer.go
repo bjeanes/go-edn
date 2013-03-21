@@ -174,7 +174,6 @@ func (l *lexer) readWhileRegexpMatch(regexp string) {
 		panic("Unexpected regex match")
 	}
 
-	// TODO: read indexes[1] runes
 	for i := 0; i < indexes[1] - 1; i++ {
 		l.read()
 	}
