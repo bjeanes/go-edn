@@ -119,15 +119,12 @@ func lexEDN(l *lexer) {
 			}
 			// l.emit(tWhitespace)
 			l.start = l.position // Temporarily ignore whitespace
+		case '+', '-', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9':
+			l.readTokenMatchingRegexp(numberRegex)
+			l.emit(tNumber)
 		default:
-			switch {
-			case ch == '+' || ch == '-' || unicode.IsNumber(ch):
-				l.readTokenMatchingRegexp(numberRegex)
-				l.emit(tNumber)
-			default:
-				// TODO: proper error handling
-				panic("Unexpected character " + fmt.Sprintf("'%c'", ch))
-			}
+			// TODO: proper error handling
+			panic("Unexpected character " + fmt.Sprintf("'%c'", ch))
 
 		}
 	}
