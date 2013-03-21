@@ -156,24 +156,27 @@ func (l *lexer) read() (ch rune, size int, err error) {
 	return
 }
 
-// TODO: This could use FindStringIndex or FindReaderIndex (if we can reliably
-// seek reader to correct position after)
 func (l *lexer) readWhileRegexpMatch(regexp string) {
-	for {
-		value := l.nextValue()
-		regexp = "^" + regexp + "$"
-		matched, err := re.MatchString(regexp, value)
+	regexp = "^" + regexp
+	reg, err := re.Compile(regexp)
+	if err != nil {
+		panic("Invalid regex: " + regexp)
+	}
 
-		if err != nil {
-			panic("I don't know what kinds of errors can happen yet")
-		}
+	indexes := reg.FindStringIndex(l.input[l.position - 1:])
 
-		if matched {
-			_, _, _ = l.read()
-		} else {
-			l.unread()
-			break
-		}
+	if indexes == nil {
+		panic("No match")
+	}
+
+	if indexes[0] != 0 {
+		// shouldn't happen due to anchoring
+		panic("Unexpected regex match")
+	}
+
+	// TODO: read indexes[1] runes
+	for i := 0; i < indexes[1] - 1; i++ {
+		l.read()
 	}
 }
 
