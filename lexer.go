@@ -104,9 +104,9 @@ func lexEDN(l *lexer) {
 		case ';': // comment
 		case '\t', ',', ' ': // whitespace
 			for {
-				ch, size, _ := l.read()
+				ch, _, _ := l.read()
 				if !isWhitespace(ch) {
-					l.unread(size)
+					l.unread()
 					break
 				}
 			}
@@ -134,26 +134,30 @@ func lexEDN(l *lexer) {
 }
 
 type lexer struct {
-	input    string
-	reader   *strings.Reader
-	start    int
-	position int
-	tokens   chan token
+	input        string
+	reader       *strings.Reader
+	start        int
+	position     int
+	lastRuneSize int
+	tokens       chan token
 }
 
 func (l *lexer) peek() (ch rune, size int, err error) {
 	ch, size, err = l.read()
-	l.unread(size)
+	l.unread()
 	return
 }
 
-func (l *lexer) unread(size int) {
+// FIXME: can only unread one rune
+func (l *lexer) unread() {
 	l.reader.UnreadRune()
-	l.position -= size
+	l.position -= l.lastRuneSize
+	l.lastRuneSize = 0
 }
 
 func (l *lexer) read() (ch rune, size int, err error) {
 	ch, size, err = l.reader.ReadRune()
+	l.lastRuneSize = size
 	l.position += size
 	return
 }
