@@ -20,7 +20,10 @@ func assertLexerYieldsCorrectTokens(
 	}
 
 	if len(tokens) != len(types) {
-		t.Errorf("Got %d tokens, expecting %d", len(tokens), len(types))
+		t.Errorf("Got %d tokens, expecting %d:\n\n%#v\n%#v",
+			len(tokens),
+			len(values),
+			tokens, values)
 		return
 	}
 
