@@ -10,12 +10,12 @@ type tokenType int
 
 const (
 	tEOF tokenType = 1 << iota
-	tOpenParen
-	tCloseParen
-	tOpenBrace
-	tCloseBrace
-	tOpenBracket
-	tCloseBracket
+	tOpenList
+	tCloseList
+	tOpenMap
+	tCloseMapOrSet
+	tOpenVector
+	tCloseVector
 	tQuoteNextForm
 	tOpenSet
 	tString
@@ -62,32 +62,34 @@ func lexEDN(l *lexer) {
 
 		switch ch {
 		case '(':
-			l.emit(tOpenParen)
+			l.emit(tOpenList)
 		case '[':
-			l.emit(tOpenBracket)
+			l.emit(tOpenVector)
 		case '{':
-			l.emit(tOpenBrace)
+			l.emit(tOpenMap)
 		case ')':
-			l.emit(tCloseParen)
+			l.emit(tCloseList)
 		case ']':
-			l.emit(tCloseBracket)
+			l.emit(tCloseVector)
 		case '}':
-			l.emit(tCloseBrace)
+			l.emit(tCloseMapOrSet)
 		case ':': // keyword
 			// TODO: Read keyword value
 			l.emit(tKeyword)
-		case '\'': l.emit(tQuoteNextForm)
-		case '^': l.emit(tMetadata)
+		case '\'':
+			l.emit(tQuoteNextForm)
+		case '^':
+			l.emit(tMetadata)
 		case '#': // ...
 			ch, _, _ := l.read()
 
 			switch ch {
-				case '_':
-					l.emit(tIgnoreNextForm)
-				case '{':
-					l.emit(tOpenSet)
-				case '^':
-					l.emit(tMetadata)
+			case '_':
+				l.emit(tIgnoreNextForm)
+			case '{':
+				l.emit(tOpenSet)
+			case '^':
+				l.emit(tMetadata)
 			}
 		case '"':
 			for {
@@ -112,16 +114,16 @@ func lexEDN(l *lexer) {
 			l.start = l.position // Temporarily ignore whitespace
 		default:
 			switch {
-				case unicode.IsNumber(ch):
-					// TODO: non integer numbers...
-					for {
-						ch, size, _ := l.read()
-						if !unicode.IsNumber(ch) {
-							l.unread(size)
-							break
-						}
+			case unicode.IsNumber(ch):
+				// TODO: non integer numbers...
+				for {
+					ch, size, _ := l.read()
+					if !unicode.IsNumber(ch) {
+						l.unread(size)
+						break
 					}
-					l.emit(tNumber)
+				}
+				l.emit(tNumber)
 			default:
 				// TODO: proper error handling
 				panic("Unexpected character " + fmt.Sprintf("'%c'", ch))

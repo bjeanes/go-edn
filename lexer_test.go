@@ -44,10 +44,10 @@ func TestEmptyGivesOnlyEOF(t *T) {
 		values(""))
 }
 
-func TestOpenCloseParens(t *T) {
+func TestOpenCloseLists(t *T) {
 	assertLexerYieldsCorrectTokens(t,
 		"()",
-		tokens(tOpenParen, tCloseParen, tEOF),
+		tokens(tOpenList, tCloseList, tEOF),
 		values("(", ")", ""))
 }
 
@@ -55,10 +55,10 @@ func TestComplex(t *T) {
 	assertLexerYieldsCorrectTokens(t,
 		"(1, 24223 {[5] \"abc\"} '())",
 		tokens(
-			tOpenParen, tNumber, tNumber, tOpenBrace,
-			tOpenBracket, tNumber, tCloseBracket, tString,
-			tCloseBrace, tQuoteNextForm, tOpenParen,
-			tCloseParen, tCloseParen, tEOF),
+			tOpenList, tNumber, tNumber, tOpenMap,
+			tOpenVector, tNumber, tCloseVector, tString,
+			tCloseMapOrSet, tQuoteNextForm, tOpenList,
+			tCloseList, tCloseList, tEOF),
 		values("(", "1", "24223", "{", "[", "5", "]", "\"abc\"",
 			"}", "'", "(", ")", ")", ""))
 }
