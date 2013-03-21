@@ -31,6 +31,10 @@ const (
 	tError
 )
 
+const (
+	numberRegex = "[+-]?(0|[1-9]\\d*)"
+)
+
 type token struct {
 	kind  tokenType
 	value string
@@ -116,7 +120,7 @@ func lexEDN(l *lexer) {
 		default:
 			switch {
 			case ch == '+' || ch == '-' || unicode.IsNumber(ch):
-				l.readWhileRegexpMatch("[+-]?(0|[1-9]\\d*)")
+				l.readWhileRegexpMatch(numberRegex)
 				l.emit(tNumber)
 			default:
 				// TODO: proper error handling
