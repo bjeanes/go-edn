@@ -61,14 +61,19 @@ func TestOpenCloseLists(t *T) {
 }
 
 func TestComplex(t *T) {
+	edn := "(1, 24223 ; i'm a comment\n 0 -4 {[5] #{2.34} \"ab\\\"c\"} '() " +
+		"2N, 2M, 2.3M, 2e3, 2E3, 2e-3, 2e+3, -3e+2, -3e+4M, +3.2E-4)"
 	assertLexerYieldsCorrectTokens(t,
-		"(1, 24223 ; i'm a comment\n 0 -4 {[5] #{2.34} \"ab\\\"c\"} '())",
+		edn,
 		tokens(
 			tOpenList, tNumber, tNumber, tComment, tNumber, tNumber,
 			tOpenMap, tOpenVector, tNumber, tCloseVector, tOpenSet, tNumber,
 			tCloseMapOrSet, tString, tCloseMapOrSet, tQuoteNextForm,
-			tOpenList, tCloseList, tCloseList, tEOF),
+			tOpenList, tCloseList, tNumber, tNumber, tNumber, tNumber,
+			tNumber, tNumber, tNumber, tNumber, tNumber, tNumber,
+			tCloseList, tEOF),
 		values("(", "1", "24223", "; i'm a comment", "0", "-4", "{",
 			"[", "5", "]", "#{", "2.34", "}", "\"ab\\\"c\"", "}", "'",
-			"(", ")", ")", ""))
+			"(", ")", "2N", "2M", "2.3M", "2e3", "2E3", "2e-3", "2e+3",
+			"-3e+2", "-3e+4M", "+3.2E-4", ")", ""))
 }

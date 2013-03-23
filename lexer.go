@@ -32,8 +32,12 @@ const (
 )
 
 const (
-	numberRegex = "[+-]?(0|[1-9]\\d*)(\\.\\d+)?"
-	stringRegex = "\"(\\\\\"|[^\"\\\\])*?\"" // TODO: do multiline strings work?
+	// From clojure.git@4671019d7:src/jvm/clojure/lang/EdnReader.java
+	intPattern   = "([-+]?)((0)|([1-9][0-9]*)|0[xX]([0-9A-Fa-f]+)|0([0-7]+)|([1-9][0-9]?)[rR]([0-9A-Za-z]+)|0[0-9]+)(N)?"
+	floatPattern = "([-+]?[0-9]+(\\.[0-9]*)?([eE][-+]?[0-9]+)?)(M)?"
+
+	numberPattern = "(" + floatPattern + "|" + intPattern + ")"
+	stringPattern = "\"(\\\\\"|[^\"\\\\])*?\"" // TODO: do multiline strings work?
 )
 
 type token struct {
@@ -98,7 +102,7 @@ func lexEDN(l *lexer) {
 				l.emit(tMetadata)
 			}
 		case '"':
-			l.readTokenMatchingRegexp(stringRegex)
+			l.readTokenMatchingRegexp(stringPattern)
 			l.emit(tString)
 		case ';':
 			for {
@@ -120,7 +124,7 @@ func lexEDN(l *lexer) {
 			// l.emit(tWhitespace)
 			l.start = l.position // Temporarily ignore whitespace
 		case '+', '-', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9':
-			l.readTokenMatchingRegexp(numberRegex)
+			l.readTokenMatchingRegexp(numberPattern)
 			l.emit(tNumber)
 		default:
 			// TODO: proper error handling
@@ -168,10 +172,7 @@ func (l *lexer) read() (ch rune, size int, err error) {
 
 func (l *lexer) readTokenMatchingRegexp(pattern string) {
 	pattern = "^" + pattern
-	reg, err := re.Compile(pattern)
-	if err != nil {
-		panic("Invalid regex: " + pattern)
-	}
+	reg := re.MustCompilePOSIX(pattern)
 
 	indexes := reg.FindStringIndex(l.input[l.position-1:])
 
