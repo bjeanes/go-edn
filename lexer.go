@@ -20,6 +20,7 @@ const (
 	tQuoteNextForm
 	tOpenSet
 	tString
+	tCharacter
 	tSymbol
 	tKeyword
 	tNumber
@@ -86,6 +87,9 @@ func lexEDN(l *lexer) {
 		case ':': // keyword
 			// TODO: Read keyword value
 			l.emit(tKeyword)
+		case '\\':
+			// TODO: read character
+			l.emit(tCharacter)
 		case '\'':
 			l.emit(tQuoteNextForm)
 		case '^':
