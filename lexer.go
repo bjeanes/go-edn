@@ -131,15 +131,15 @@ func lexEDN(l *lexer) {
 			l.readTokenMatchingRegexp(numberPattern)
 			l.emit(tNumber)
 		default:
-			// TODO: proper error handling
-			pad := ""
-			for i := 0; i < l.position; i++ {
-				pad = pad + " "
-			}
+			// TODO read symbol
 
-			err := "Unexpected character " + fmt.Sprintf("'%c'", ch) + ":\n\n" +
-			    // TODO only show the current line of input
-				l.input + "\n" + pad + "^"
+			start := l.position - 10
+			end := l.position + 10
+			if start < 0 {
+				start = 0
+			}
+			context := "... " + l.input[start:end] + " ..."
+			err := fmt.Sprintf("Unexpected character '%c' in %#v", ch, context)
 			panic(err)
 		}
 	}
