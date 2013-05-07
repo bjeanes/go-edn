@@ -8,46 +8,46 @@ package edn
 // line 6 "parser.rl"
 
 // line 11 "ragel_parser.go"
-var _EDNParser_key_offsets []byte = []byte{
+var _ednParser_key_offsets []byte = []byte{
 	0, 0, 1, 2, 
 }
 
-var _EDNParser_trans_keys []byte = []byte{
+var _ednParser_trans_keys []byte = []byte{
 	91, 93, 
 }
 
-var _EDNParser_single_lengths []byte = []byte{
+var _ednParser_single_lengths []byte = []byte{
 	0, 1, 1, 0, 
 }
 
-var _EDNParser_range_lengths []byte = []byte{
+var _ednParser_range_lengths []byte = []byte{
 	0, 0, 0, 0, 
 }
 
-var _EDNParser_index_offsets []byte = []byte{
+var _ednParser_index_offsets []byte = []byte{
 	0, 0, 2, 4, 
 }
 
-var _EDNParser_trans_targs []byte = []byte{
+var _ednParser_trans_targs []byte = []byte{
 	2, 0, 3, 0, 0, 
 }
 
-const EDNParser_start int = 1
-const EDNParser_first_final int = 3
-const EDNParser_error int = 0
+const ednParser_start int = 1
+const ednParser_first_final int = 3
+const ednParser_error int = 0
 
-const EDNParser_en_main int = 1
+const ednParser_en_main int = 1
 
 
 // line 7 "parser.rl"
 
 func ParseBytes(data []byte) (EDN, error) {
-    cs, p, pe := 0, 0, len(data)
+	cs, p, pe := 0, 0, len(data)
 
     
 // line 49 "ragel_parser.go"
 	{
-	cs = EDNParser_start
+	cs = ednParser_start
 	}
 
 // line 54 "ragel_parser.go"
@@ -62,10 +62,10 @@ func ParseBytes(data []byte) (EDN, error) {
 		goto _out
 	}
 _resume:
-	_keys = int(_EDNParser_key_offsets[cs])
-	_trans = int(_EDNParser_index_offsets[cs])
+	_keys = int(_ednParser_key_offsets[cs])
+	_trans = int(_ednParser_index_offsets[cs])
 
-	_klen = int(_EDNParser_single_lengths[cs])
+	_klen = int(_ednParser_single_lengths[cs])
 	if _klen > 0 {
 		_lower := int(_keys)
 		var _mid int
@@ -77,9 +77,9 @@ _resume:
 
 			_mid = _lower + ((_upper - _lower) >> 1)
 			switch {
-			case data[p] < _EDNParser_trans_keys[_mid]:
+			case data[p] < _ednParser_trans_keys[_mid]:
 				_upper = _mid - 1
-			case data[p] > _EDNParser_trans_keys[_mid]:
+			case data[p] > _ednParser_trans_keys[_mid]:
 				_lower = _mid + 1
 			default:
 				_trans += int(_mid - int(_keys))
@@ -90,7 +90,7 @@ _resume:
 		_trans += _klen
 	}
 
-	_klen = int(_EDNParser_range_lengths[cs])
+	_klen = int(_ednParser_range_lengths[cs])
 	if _klen > 0 {
 		_lower := int(_keys)
 		var _mid int
@@ -102,9 +102,9 @@ _resume:
 
 			_mid = _lower + (((_upper - _lower) >> 1) & ^1)
 			switch {
-			case data[p] < _EDNParser_trans_keys[_mid]:
+			case data[p] < _ednParser_trans_keys[_mid]:
 				_upper = _mid - 2
-			case data[p] > _EDNParser_trans_keys[_mid + 1]:
+			case data[p] > _ednParser_trans_keys[_mid + 1]:
 				_lower = _mid + 2
 			default:
 				_trans += int((_mid - int(_keys)) >> 1)
@@ -115,7 +115,7 @@ _resume:
 	}
 
 _match:
-	cs = int(_EDNParser_trans_targs[_trans])
+	cs = int(_ednParser_trans_targs[_trans])
 
 	if cs == 0 {
 		goto _out

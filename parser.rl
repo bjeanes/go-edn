@@ -2,7 +2,7 @@
 
 package edn
 
-%% machine EDNParser;
+%% machine ednParser;
 %% write data;
 
 func ParseBytes(data []byte) (EDN, error) {

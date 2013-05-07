@@ -1,4 +1,4 @@
-digraph EDNParser {
+digraph ednParser {
 	rankdir=LR;
 	node [ shape = point ];
 	ENTRY;
