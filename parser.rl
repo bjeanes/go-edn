@@ -6,10 +6,10 @@ package edn
 %% write data;
 
 func ParseBytes(data []byte) (EDN, error) {
-    cs, p, pe := 0, 0, len(data)
+	cs, p, pe := 0, 0, len(data)
 
-    %%{
-    	edn = "[]";
+	%%{
+		edn = "[]";
 
 		main := edn;
 		write init;
