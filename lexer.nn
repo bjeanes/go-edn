@@ -1,0 +1,5 @@
+/./ { return 0 }
+
+// 
+package edn
+//
