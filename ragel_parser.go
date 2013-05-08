@@ -9,34 +9,38 @@ package edn
 
 // line 11 "ragel_parser.go"
 var _ednParser_key_offsets []byte = []byte{
-	0, 0, 1, 2, 
+	0, 0, 1, 2, 3, 4, 5, 14, 
 }
 
 var _ednParser_trans_keys []byte = []byte{
-	91, 93, 
+	34, 123, 125, 41, 93, 32, 34, 35, 
+	40, 44, 91, 123, 9, 13, 32, 44, 
+	9, 13, 
 }
 
 var _ednParser_single_lengths []byte = []byte{
-	0, 1, 1, 0, 
+	0, 1, 1, 1, 1, 1, 7, 2, 
 }
 
 var _ednParser_range_lengths []byte = []byte{
-	0, 0, 0, 0, 
+	0, 0, 0, 0, 0, 0, 1, 1, 
 }
 
 var _ednParser_index_offsets []byte = []byte{
-	0, 0, 2, 4, 
+	0, 0, 2, 4, 6, 8, 10, 19, 
 }
 
 var _ednParser_trans_targs []byte = []byte{
-	2, 0, 3, 0, 0, 
+	7, 0, 3, 0, 7, 0, 7, 0, 
+	7, 0, 6, 1, 2, 4, 6, 5, 
+	3, 6, 0, 7, 7, 7, 0, 
 }
 
-const ednParser_start int = 1
-const ednParser_first_final int = 3
+const ednParser_start int = 6
+const ednParser_first_final int = 6
 const ednParser_error int = 0
 
-const ednParser_en_main int = 1
+const ednParser_en_main int = 6
 
 
 // line 7 "parser.rl"
@@ -44,13 +48,13 @@ const ednParser_en_main int = 1
 func ParseBytes(data []byte) (EDN, error) {
 	cs, p, pe := 0, 0, len(data)
 
-    
-// line 49 "ragel_parser.go"
+	
+// line 53 "ragel_parser.go"
 	{
 	cs = ednParser_start
 	}
 
-// line 54 "ragel_parser.go"
+// line 58 "ragel_parser.go"
 	{
 	var _klen int
 	var _trans int
@@ -128,7 +132,7 @@ _match:
 	_out: {}
 	}
 
-// line 17 "parser.rl"
+// line 32 "parser.rl"
 
 
 	return []EDN{}, nil

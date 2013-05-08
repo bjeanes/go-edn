@@ -9,9 +9,24 @@ func ParseBytes(data []byte) (EDN, error) {
 	cs, p, pe := 0, 0, len(data)
 
 	%%{
-		edn = "[]";
+		set    = '#{'  '}';
+		map    = '{' '}';
+		list   = '(' ')';
+		vector = '[' ']';
+		string = '"' '"';
 
-		main := edn;
+		ws = space | ',';
+
+		edn = (
+			vector | 
+			list |
+			map |
+			set |
+			string
+		);
+
+		main := ws* (edn ws*)?;
+
 		write init;
 		write exec;
 	}%%
