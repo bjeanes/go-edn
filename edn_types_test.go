@@ -38,20 +38,15 @@ func TestListString(t *T) {
 	assertEqual("(1 [] \"abc\")", list.String(), t)
 }
 
-func TestEmptyMapString(t *T) {
+func TestMapString(t *T) {
 	_map := new(Map)
-	str := _map.String()
 
-	if str != "{}" {
-		t.Fail()
-	}
+	assertEqual("{}", _map.String(), t)
 }
 
 func TestEmptySetString(t *T) {
 	set := new(Set)
-	str := set.String()
 
-	if str != "#{}" {
-		t.Fail()
-	}
+	assertEqual("#{}", set.String(), t)
+
 }
