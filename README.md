@@ -18,3 +18,8 @@ make
 ```
 
 This will also run the tests.
+
+## License
+
+Not yet licensed, mostly out of laziness. If you want to make use of this project today, just
+[contact me](mailto:me@bjeanes.com).
