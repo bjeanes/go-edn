@@ -7,15 +7,14 @@ A parser for EDN in Go. See https://github.com/edn-format/edn
 The lexer is generated with [nex](http://www-cs-students.stanford.edu/~blynn/nex/) 
 and the parser is generated with [Go's bundled `yacc` command](http://golang.org/cmd/yacc/).
 
-Since the Go source code for each needs to be generated before this will build, a
-`Makefile` is provided. Simply run `make` to handle everything.
+In order to be compatible with `go get`<sup>\[[1](https://botbot.me/freenode/go-nuts/msg/3137158/)\]</sup>,
+which does not support a precompilation step<sup>\[[2](http://golang.org/doc/articles/go_command.html#tmp_4)\]</sup>
+the generated files are committed alongside the source files.
 
-**TODO:** Consider committing the generated files (despite being artifacts) so that
-consumers of this library can just do `import edn "github.com/bjeanes/go-edn"` without
-manually pulling down and installing the package. This seems to be
-[the](http://golang.org/doc/articles/go_command.html#tmp_4) 
-[expectation](https://botbot.me/freenode/go-nuts/msg/3137158/).
+The lexer and parser are re-created every time the project is made, which you can simply do with:
 
-### Running Tests
+```
+make
+```
 
-Just run `make test` to re-generate the lexer, parser, and run the tests.
+This will also run the tests.
