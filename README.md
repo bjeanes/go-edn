@@ -1,6 +1,6 @@
 # EDN
 
-A parser for EDN in Go. See https://github.com/edn-format/edn
+An [EDN](https://github.com/edn-format/edn) parser for Go.
 
 ## Building
 
