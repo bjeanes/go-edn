@@ -1,9 +1,9 @@
-.PHONY: all setup test clean parser lexer deps
+.PHONY: all setup test clean parser lexer get-deps
 
 all: test
 	go build -v ...
 
-setup: deps parser lexer
+setup: parser lexer
 	@:
 
 lexer:
@@ -15,8 +15,9 @@ parser:
 	rm -f parser.y.go
 	go tool yacc -o parser.y.go parser.y
 
-deps:
-	go get -d -v -u ...
+get-deps:
+	go get -d -v -u ... github.com/blynn/nex
+	go install github.com/blynn/nex
 
 clean:
 	rm -rf *.output *.nn.go *.y.go
