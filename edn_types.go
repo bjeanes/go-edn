@@ -20,7 +20,22 @@ func (s Set) String() string {
 }
 
 func (m Map) String() string {
-	return "{}"
+	var buffer bytes.Buffer
+	buffer.WriteString("{")
+
+	i := 0
+	for k, v := range m {
+		i++
+		buffer.WriteString(k.String())
+		buffer.WriteString(" ")
+		buffer.WriteString(v.String())
+		if i < len(m) {
+			buffer.WriteString(" ")
+		}
+	}
+
+	buffer.WriteString("}")
+	return buffer.String()
 }
 
 func (vec Vector) String() string {

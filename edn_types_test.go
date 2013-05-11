@@ -39,9 +39,11 @@ func TestListString(t *T) {
 }
 
 func TestMapString(t *T) {
-	_map := new(Map)
-
+	_map := make(Map)
 	assertEqual("{}", _map.String(), t)
+
+	_map[String("test")] = Vector{String("value1"), String("value2")}
+	assertEqual(`{"test" ["value1" "value2"]}`, _map.String(), t)
 }
 
 func TestEmptySetString(t *T) {
