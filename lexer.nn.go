@@ -24,6 +24,16 @@ func init() {
 	{
 		var acc [2]bool
 		var fun [2]func(rune) int
+		fun[0] = func(r rune) int {
+			switch r {
+			default:
+				switch {
+				default:
+					return 1
+				}
+			}
+			panic("unreachable")
+		}
 		acc[1] = true
 		fun[1] = func(r rune) int {
 			switch r {
@@ -31,16 +41,6 @@ func init() {
 				switch {
 				default:
 					return -1
-				}
-			}
-			panic("unreachable")
-		}
-		fun[0] = func(r rune) int {
-			switch r {
-			default:
-				switch {
-				default:
-					return 1
 				}
 			}
 			panic("unreachable")
