@@ -32,7 +32,7 @@ const yyEofCode = 1
 const yyErrCode = 2
 const yyMaxDepth = 200
 
-//line parser.y:14
+//line parser.y:28
  
 
 //line yacctab:1
@@ -42,45 +42,58 @@ var yyExca = []int{
 	-2, 0,
 }
 
-const yyNprod = 2
+const yyNprod = 8
 const yyPrivate = 57344
 
 var yyTokenNames []string
 var yyStates []string
 
-const yyLast = 1
+const yyLast = 11
 
 var yyAct = []int{
 
+	8, 6, 10, 7, 9, 11, 5, 4, 3, 2,
 	1,
 }
 var yyPact = []int{
 
+	-11, -1000, -1000, -1000, -1000, -1000, -9, -13, -6, -1000,
 	-1000, -1000,
 }
 var yyPgo = []int{
 
-	0, 0,
+	0, 10, 9, 8, 7, 6,
 }
 var yyR1 = []int{
 
-	0, 1,
+	0, 1, 2, 2, 2, 5, 3, 4,
 }
 var yyR2 = []int{
 
-	0, 0,
+	0, 1, 1, 1, 1, 2, 2, 2,
 }
 var yyChk = []int{
 
-	-1000, -1,
+	-1000, -1, -2, -3, -4, -5, 12, 14, 11, 13,
+	15, 11,
 }
 var yyDef = []int{
 
-	1, -2,
+	0, -2, 1, 2, 3, 4, 0, 0, 0, 6,
+	7, 5,
 }
 var yyTok1 = []int{
 
-	1,
+	1, 3, 3, 3, 3, 3, 3, 3, 3, 3,
+	3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
+	3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
+	3, 3, 3, 3, 11, 3, 3, 3, 3, 3,
+	12, 13, 3, 3, 3, 3, 3, 3, 3, 3,
+	3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
+	3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
+	3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
+	3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
+	3, 14, 3, 15,
 }
 var yyTok2 = []int{
 

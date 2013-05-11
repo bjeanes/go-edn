@@ -13,6 +13,12 @@ type String string
 
 type Value interface {
 	String() string
+	Equals(Value) bool
+}
+
+func (s Set) Equals(v Value) bool {
+	panic("unimplemented")
+	return false
 }
 
 func (s Set) String() string {
@@ -36,6 +42,11 @@ func (s Set) Insert(v Value) {
 	s[v] = true
 }
 
+func (m Map) Equals(v Value) bool {
+	panic("unimplemented")
+	return false
+}
+
 func (m Map) String() string {
 	var buffer bytes.Buffer
 	buffer.WriteString("{")
@@ -55,6 +66,11 @@ func (m Map) String() string {
 	return buffer.String()
 }
 
+func (vec Vector) Equals(v Value) bool {
+	panic("unimplemented")
+	return false
+}
+
 func (vec Vector) String() string {
 	var buffer bytes.Buffer
 	buffer.WriteString("[")
@@ -68,6 +84,11 @@ func (vec Vector) String() string {
 
 	buffer.WriteString("]")
 	return buffer.String()
+}
+
+func (l *List) Equals(v Value) bool {
+	panic("unimplemented")
+	return false
 }
 
 func (l *List) String() string {
@@ -87,8 +108,18 @@ func (l *List) String() string {
 	return buffer.String()
 }
 
+func (i Int) Equals(v Value) bool {
+	panic("unimplemented")
+	return false
+}
+
 func (i Int) String() string {
 	return fmt.Sprintf("%d", int(i))
+}
+
+func (s String) Equals(v Value) bool {
+	panic("unimplemented")
+	return false
 }
 
 func (s String) String() string {

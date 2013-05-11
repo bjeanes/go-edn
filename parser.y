@@ -9,6 +9,20 @@ import "fmt"
 
 %token openBracket closeBracket openParen closeParen openBrace closeBrace octothorpe
 %% 
-input: /* empty */
+input: value
+;
+
+value: list
+| vector
+| string
+;
+
+string: '"' '"'
+;
+
+list: '(' ')'
+;
+
+vector: '[' ']'
 ;
 %% 
