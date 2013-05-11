@@ -1,7 +1,7 @@
 .PHONY: all setup test clean parser lexer deps
 
 all: test
-	go build
+	go build -v ...
 
 setup: deps parser lexer
 	@:
@@ -16,7 +16,7 @@ parser:
 	go tool yacc -o parser.y.go parser.y
 
 deps:
-	go get -u ...
+	go get -d -v -u ...
 
 clean:
 	rm -rf *.output *.nn.go *.y.go
