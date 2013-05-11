@@ -49,8 +49,11 @@ func TestSetString(t *T) {
 	set.Insert(String("abc"))
 	assertEqual(`#{"abc"}`, set.String(), t)
 
-	set.Insert(Int(123))
-	assertEqual(`#{"abc" 123}`, set.String(), t)
+	// Unstable test because sets/maps are unordered and enumerated in a
+	// random order:
+	//
+	// set.Insert(Int(123))
+	// assertEqual(`#{"abc" 123}`, set.String(), t)
 
 	// TODO: This causes a runtime panic. Mutable types (maps, vectors, etc) can't
 	//       be map keys in Go. Since the sets are backed by a Map, it blows up :(
