@@ -1,6 +1,7 @@
 package edn
 
 import . "testing"
+import ll "container/list"
 
 func assertEqual(expect, actual interface{}, t *T) {
 	if expect != actual {
@@ -23,13 +24,18 @@ func TestVectorString(t *T) {
 	assertEqual(`[1 [] "abc"]`, vec.String(), t)
 }
 
-func TestEmptyListString(t *T) {
+func TestListString(t *T) {
 	list := new(List)
-	str := list.String()
+	ll := (*ll.List)(list)
 
-	if str != "()" {
-		t.Fail()
-	}
+	assertEqual("()", list.String(), t)
+
+	ll.PushBack(Int(1))
+	assertEqual("(1)", list.String(), t)
+
+	ll.PushBack(make(Vector, 0))
+	ll.PushBack(String("abc"))
+	assertEqual("(1 [] \"abc\")", list.String(), t)
 }
 
 func TestEmptyMapString(t *T) {

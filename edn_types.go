@@ -38,8 +38,21 @@ func (vec Vector) String() string {
 	return buffer.String()
 }
 
-func (l List) String() string {
-	return "()"
+func (l *List) String() string {
+	list := (*list.List)(l)
+	var buffer bytes.Buffer
+	buffer.WriteString("(")
+
+	for el := list.Front(); el != nil; el = el.Next() {
+		item := el.Value.(Value)
+		buffer.WriteString(item.String())
+		if el.Next() != nil {
+			buffer.WriteString(" ")
+		}
+	}
+
+	buffer.WriteString(")")
+	return buffer.String()
 }
 
 func (i Int) String() string {
