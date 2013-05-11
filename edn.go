@@ -2,10 +2,7 @@ package edn
 
 import "io"
 
-type EDN interface {
-}
-
-func ParseEDN(reader io.Reader) EDN {
+func ParseReader(reader io.Reader) Value {
 	yyParse(NewLexer(reader))
-	return []EDN{}
+	return Vector([]Value{})
 }
