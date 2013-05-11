@@ -11,11 +11,7 @@ func assertEqual(expect, actual interface{}, t *T) {
 
 func TestVectorString(t *T) {
 	vec := make(Vector, 0)
-	str := vec.String()
-
-	if str != "[]" {
-		t.Fail()
-	}
+	assertEqual("[]", vec.String(), t)
 
 	vec = append(vec, Int(1))
 	assertEqual("[1]", vec.String(), t)
