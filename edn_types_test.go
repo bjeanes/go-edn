@@ -46,9 +46,14 @@ func TestMapString(t *T) {
 	assertEqual(`{"test" ["value1" "value2"]}`, _map.String(), t)
 }
 
-func TestEmptySetString(t *T) {
-	set := new(Set)
-
+func TestSetString(t *T) {
+	set := make(Set)
 	assertEqual("#{}", set.String(), t)
 
+	set.Insert(String("abc"))
+	assertEqual(`#{"abc"}`, set.String(), t)
+
+	// TODO: This causes a runtime panic. Mutable types (maps, vectors, etc) can't
+	//       be map keys in Go. Since the sets are backed by a Map, it blows up :(
+	// set.Insert(Vector{Int(1), Int(2), Map{String("foo"): Int(17)}})
 }

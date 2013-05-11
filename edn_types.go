@@ -16,7 +16,24 @@ type Value interface {
 }
 
 func (s Set) String() string {
-	return "#{}"
+	var buffer bytes.Buffer
+	buffer.WriteString("#{")
+
+	i := 0
+	for k, _ := range s {
+		i++
+		buffer.WriteString(k.String())
+		if i < len(s) {
+			buffer.WriteString(" ")
+		}
+	}
+
+	buffer.WriteString("}")
+	return buffer.String()
+}
+
+func (s Set) Insert(v Value) {
+	s[v] = true
 }
 
 func (m Map) String() string {
