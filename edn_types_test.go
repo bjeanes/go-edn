@@ -2,6 +2,12 @@ package edn
 
 import . "testing"
 
+func assertEqual(expect, actual interface{}, t *T) {
+	if expect != actual {
+		t.Errorf("Expecting %+v, received %+v", expect, actual)
+	}
+}
+
 func TestVectorString(t *T) {
 	vec := make(Vector, 0)
 	str := vec.String()
@@ -11,18 +17,10 @@ func TestVectorString(t *T) {
 	}
 
 	vec = append(vec, Int(1))
-	str = vec.String()
-
-	if str != "[1]" {
-		t.Errorf("Expecting [1], received %+v", str)
-	}
+	assertEqual("[1]", vec.String(), t)
 
 	vec = append(vec, make(Vector, 0), String("abc"))
-	str = vec.String()
-
-	if vec.String() != `[1 [] "abc"]` {
-		t.Errorf(`Expecting [1 [] "abc"], received %+v`, str)
-	}
+	assertEqual(`[1 [] "abc"]`, vec.String(), t)
 }
 
 func TestEmptyListString(t *T) {
