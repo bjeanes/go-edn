@@ -1,3 +1,6 @@
 language: go
-install: make get-deps
-script: make
+install: 
+- env
+- go env
+- make get-deps
+script: PATH="$PATH:`go env GOPATH`/bin:`go env GOROOT`/bin" make
