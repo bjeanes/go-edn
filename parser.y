@@ -22,7 +22,7 @@ func init() {
 
 %% 
 input
-	: value { lastResult = Value($$.v) }
+	: value { lastResult = Value($1.v) }
 	;
 
 value
@@ -31,6 +31,29 @@ value
 	| string
 	| set
 	| map
+	;
+
+ws
+	: " "
+	| "\t"
+	| ","
+	| "\r"
+	| "\n"
+	;
+
+ws＋
+	: ws
+	| ws ws＋
+
+ws✳
+	: /* empty */
+	| ws＋
+
+values
+	: ws✳ { $$.v = Value(new(List))}
+	| values ws✳ value {
+		$$.v.(*List).raw().PushBack($3.v)
+	  }
 	;
 
 string
@@ -48,10 +71,10 @@ map
 	;
 
 list
-	: tOpenParen tCloseParen { $$.v = new(List) }
+	: tOpenParen values tCloseParen { $$.v = $2.v }
 	;
 
 vector
-	: tOpenBrace tOpenBrace { $$.v = Vector{} }
+	: tOpenBracket tCloseBracket { $$.v = Vector{} }
 	;
 %%

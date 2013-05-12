@@ -12,15 +12,33 @@ func TestDoesNotParseEmptyInput(t *T) {
 	}
 }
 
-func TestParseEmptyList(t *T) {
+func TestParseList(t *T) {
 	val, err := ParseString("()")
 
 	if err != nil {
 		t.Errorf("Expected parsing \"()\" to succeed. %v", err)
 	}
 
-	if val == nil || !val.Equals(new(List)) {
-		t.Errorf("Expected parsing \"()\" to return an empty list, got %v", val)
+	if !new(List).Equals(val) {
+		t.Errorf("Expected parsing \"()\" to return an empty list, got %+v", val)
+	}
+
+	str := `(() "abc" [] "def")`
+	val, err = ParseString(str)
+
+	if err != nil {
+		t.Errorf("Expected parsing %#v to succeed. %v", str, err)
+	}
+
+	l := new(List)
+	ll := l.raw()
+	ll.PushBack(new(List))
+	ll.PushBack(String("abc"))
+	ll.PushBack(Vector{})
+	ll.PushBack(String("def"))
+
+	if !l.Equals(val) {
+		t.Errorf("Expected %v, got %v", l, val)
 	}
 }
 

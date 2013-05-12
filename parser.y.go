@@ -10,7 +10,7 @@ func init() {
 	//yyDebug = 4
 }
 
-//line parser.y:13
+//line parser.y:17
 type yySymType struct {
 	yys int 
 	v Value
@@ -41,7 +41,7 @@ const yyEofCode = 1
 const yyErrCode = 2
 const yyMaxDepth = 200
 
-//line parser.y:57
+//line parser.y:84
 
 //line yacctab:1
 var yyExca = []int{
@@ -50,51 +50,63 @@ var yyExca = []int{
 	-2, 0,
 }
 
-const yyNprod = 12
+const yyNprod = 23
 const yyPrivate = 57344
 
 var yyTokenNames []string
 var yyStates []string
 
-const yyLast = 16
+const yyLast = 34
 
 var yyAct = []int{
 
-	8, 16, 9, 15, 11, 10, 14, 13, 12, 7,
-	6, 5, 4, 3, 2, 1,
+	2, 26, 15, 14, 28, 24, 17, 18, 19, 20,
+	21, 17, 18, 19, 20, 21, 9, 25, 8, 27,
+	12, 23, 11, 10, 22, 13, 29, 16, 7, 6,
+	5, 4, 3, 1,
 }
 var yyPact = []int{
 
-	-6, -1000, -1000, -1000, -1000, -1000, -1000, -1000, 1, -2,
-	-1000, -5, -1000, -1000, -1000, -8, -1000,
+	12, -1000, -1000, -1000, -1000, -1000, -1000, -1000, -1, 19,
+	-1000, 13, -4, -6, -1000, -1000, -1, -1000, -1000, -1000,
+	-1000, -1000, -1000, -5, -1000, 12, -1000, -1000, -1000, -1000,
 }
 var yyPgo = []int{
 
-	0, 15, 14, 13, 12, 11, 10, 9,
+	0, 33, 0, 32, 31, 30, 29, 28, 27, 2,
+	3, 25,
 }
 var yyR1 = []int{
 
-	0, 1, 2, 2, 2, 2, 2, 5, 6, 7,
-	3, 4,
+	0, 1, 2, 2, 2, 2, 2, 8, 8, 8,
+	8, 8, 9, 9, 10, 10, 11, 11, 5, 6,
+	7, 3, 4,
 }
 var yyR2 = []int{
 
-	0, 1, 1, 1, 1, 1, 1, 1, 3, 2,
-	2, 2,
+	0, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+	1, 1, 1, 2, 0, 1, 1, 3, 1, 3,
+	2, 3, 2,
 }
 var yyChk = []int{
 
-	-1000, -1, -2, -3, -4, -5, -6, -7, 6, 8,
-	11, 10, 7, 9, 8, 8, 9,
+	-1000, -1, -2, -3, -4, -5, -6, -7, 6, 4,
+	11, 10, 8, -11, -10, -9, -8, 12, 13, 14,
+	15, 16, 5, 8, 9, -10, 7, -9, 9, -2,
 }
 var yyDef = []int{
 
-	0, -2, 1, 2, 3, 4, 5, 6, 0, 0,
-	7, 0, 10, 9, 11, 0, 8,
+	0, -2, 1, 2, 3, 4, 5, 6, 14, 0,
+	18, 0, 0, 14, 16, 15, 12, 7, 8, 9,
+	10, 11, 22, 0, 20, 0, 21, 13, 19, 17,
 }
 var yyTok1 = []int{
 
-	1,
+	1, 3, 3, 3, 3, 3, 3, 3, 3, 13,
+	16, 3, 3, 15, 3, 3, 3, 3, 3, 3,
+	3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
+	3, 3, 12, 3, 3, 3, 3, 3, 3, 3,
+	3, 3, 3, 3, 14,
 }
 var yyTok2 = []int{
 
@@ -329,19 +341,27 @@ yydefault:
 	switch yynt {
 
 	case 1:
-		//line parser.y:25
-		{ lastResult = Value(yyVAL.v) }
-	case 8:
-		//line parser.y:42
+		//line parser.y:29
+		{ lastResult = Value(yyS[yypt-0].v) }
+	case 16:
+		//line parser.y:57
+		{ yyVAL.v = Value(new(List))}
+	case 17:
+		//line parser.y:58
+		{
+			yyVAL.v.(*List).raw().PushBack(yyS[yypt-0].v)
+		  }
+	case 19:
+		//line parser.y:69
 		{ yyVAL.v = Set{} }
-	case 9:
-		//line parser.y:47
+	case 20:
+		//line parser.y:74
 		{ yyVAL.v = Map{} }
-	case 10:
-		//line parser.y:51
-		{ yyVAL.v = new(List) }
-	case 11:
-		//line parser.y:55
+	case 21:
+		//line parser.y:78
+		{ yyVAL.v = yyS[yypt-1].v }
+	case 22:
+		//line parser.y:82
 		{ yyVAL.v = Vector{} }
 	}
 	goto yystack /* stack new state and value */

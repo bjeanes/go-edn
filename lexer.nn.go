@@ -56,11 +56,10 @@ func init() {
 	{
 		var acc [2]bool
 		var fun [2]func(rune) int
-		acc[1] = true
-		fun[1] = func(r rune) int {
+		fun[0] = func(r rune) int {
 			switch r {
 			case 93:
-				return -1
+				return 1
 			default:
 				switch {
 				default:
@@ -69,10 +68,11 @@ func init() {
 			}
 			panic("unreachable")
 		}
-		fun[0] = func(r rune) int {
+		acc[1] = true
+		fun[1] = func(r rune) int {
 			switch r {
 			case 93:
-				return 1
+				return -1
 			default:
 				switch {
 				default:
@@ -184,10 +184,11 @@ func init() {
 	{
 		var acc [2]bool
 		var fun [2]func(rune) int
-		fun[0] = func(r rune) int {
+		acc[1] = true
+		fun[1] = func(r rune) int {
 			switch r {
 			case 41:
-				return 1
+				return -1
 			default:
 				switch {
 				default:
@@ -196,11 +197,10 @@ func init() {
 			}
 			panic("unreachable")
 		}
-		acc[1] = true
-		fun[1] = func(r rune) int {
+		fun[0] = func(r rune) int {
 			switch r {
 			case 41:
-				return -1
+				return 1
 			default:
 				switch {
 				default:
@@ -248,54 +248,11 @@ func init() {
 	{
 		var acc [6]bool
 		var fun [6]func(rune) int
-		acc[2] = true
-		fun[2] = func(r rune) int {
-			switch r {
-			case 34:
-				return -1
-			case 92:
-				return -1
-			default:
-				switch {
-				default:
-					return -1
-				}
-			}
-			panic("unreachable")
-		}
-		fun[4] = func(r rune) int {
-			switch r {
-			case 92:
-				return 3
-			case 34:
-				return 2
-			default:
-				switch {
-				default:
-					return 4
-				}
-			}
-			panic("unreachable")
-		}
-		fun[0] = func(r rune) int {
-			switch r {
-			case 34:
-				return 1
-			case 92:
-				return -1
-			default:
-				switch {
-				default:
-					return -1
-				}
-			}
-			panic("unreachable")
-		}
 		fun[1] = func(r rune) int {
 			switch r {
-			case 34:
-				return 2
 			case 92:
+				return 2
+			case 34:
 				return 3
 			default:
 				switch {
@@ -308,9 +265,9 @@ func init() {
 		fun[5] = func(r rune) int {
 			switch r {
 			case 92:
-				return 3
-			case 34:
 				return 2
+			case 34:
+				return 3
 			default:
 				switch {
 				default:
@@ -319,16 +276,59 @@ func init() {
 			}
 			panic("unreachable")
 		}
+		fun[0] = func(r rune) int {
+			switch r {
+			case 92:
+				return -1
+			case 34:
+				return 1
+			default:
+				switch {
+				default:
+					return -1
+				}
+			}
+			panic("unreachable")
+		}
+		acc[3] = true
 		fun[3] = func(r rune) int {
 			switch r {
-			case 34:
-				return 5
 			case 92:
+				return -1
+			case 34:
+				return -1
+			default:
+				switch {
+				default:
+					return -1
+				}
+			}
+			panic("unreachable")
+		}
+		fun[2] = func(r rune) int {
+			switch r {
+			case 92:
+				return 5
+			case 34:
 				return 5
 			default:
 				switch {
 				default:
 					return 5
+				}
+			}
+			panic("unreachable")
+		}
+		fun[4] = func(r rune) int {
+			switch r {
+			case 92:
+				return 2
+			case 34:
+				return 3
+			default:
+				switch {
+				default:
+					return 4
 				}
 			}
 			panic("unreachable")
