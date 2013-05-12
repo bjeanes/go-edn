@@ -1,4 +1,8 @@
 %{
+/*
+ * If this file is not parser.y, it was generated from parser.y and
+ * should not be edited directly.
+ */
 package edn 
 import "fmt"
 

@@ -24,10 +24,11 @@ func init() {
 	{
 		var acc [2]bool
 		var fun [2]func(rune) int
-		fun[0] = func(r rune) int {
+		acc[1] = true
+		fun[1] = func(r rune) int {
 			switch r {
 			case 91:
-				return 1
+				return -1
 			default:
 				switch {
 				default:
@@ -36,11 +37,10 @@ func init() {
 			}
 			panic("unreachable")
 		}
-		acc[1] = true
-		fun[1] = func(r rune) int {
+		fun[0] = func(r rune) int {
 			switch r {
 			case 91:
-				return -1
+				return 1
 			default:
 				switch {
 				default:
@@ -56,10 +56,11 @@ func init() {
 	{
 		var acc [2]bool
 		var fun [2]func(rune) int
-		fun[0] = func(r rune) int {
+		acc[1] = true
+		fun[1] = func(r rune) int {
 			switch r {
 			case 93:
-				return 1
+				return -1
 			default:
 				switch {
 				default:
@@ -68,11 +69,10 @@ func init() {
 			}
 			panic("unreachable")
 		}
-		acc[1] = true
-		fun[1] = func(r rune) int {
+		fun[0] = func(r rune) int {
 			switch r {
 			case 93:
-				return -1
+				return 1
 			default:
 				switch {
 				default:
@@ -120,11 +120,10 @@ func init() {
 	{
 		var acc [2]bool
 		var fun [2]func(rune) int
-		acc[1] = true
-		fun[1] = func(r rune) int {
+		fun[0] = func(r rune) int {
 			switch r {
 			case 125:
-				return -1
+				return 1
 			default:
 				switch {
 				default:
@@ -133,10 +132,11 @@ func init() {
 			}
 			panic("unreachable")
 		}
-		fun[0] = func(r rune) int {
+		acc[1] = true
+		fun[1] = func(r rune) int {
 			switch r {
 			case 125:
-				return 1
+				return -1
 			default:
 				switch {
 				default:
@@ -152,10 +152,11 @@ func init() {
 	{
 		var acc [2]bool
 		var fun [2]func(rune) int
-		fun[0] = func(r rune) int {
+		acc[1] = true
+		fun[1] = func(r rune) int {
 			switch r {
 			case 40:
-				return 1
+				return -1
 			default:
 				switch {
 				default:
@@ -164,11 +165,10 @@ func init() {
 			}
 			panic("unreachable")
 		}
-		acc[1] = true
-		fun[1] = func(r rune) int {
+		fun[0] = func(r rune) int {
 			switch r {
 			case 40:
-				return -1
+				return 1
 			default:
 				switch {
 				default:
@@ -184,11 +184,10 @@ func init() {
 	{
 		var acc [2]bool
 		var fun [2]func(rune) int
-		acc[1] = true
-		fun[1] = func(r rune) int {
+		fun[0] = func(r rune) int {
 			switch r {
 			case 41:
-				return -1
+				return 1
 			default:
 				switch {
 				default:
@@ -197,10 +196,11 @@ func init() {
 			}
 			panic("unreachable")
 		}
-		fun[0] = func(r rune) int {
+		acc[1] = true
+		fun[1] = func(r rune) int {
 			switch r {
 			case 41:
-				return 1
+				return -1
 			default:
 				switch {
 				default:
@@ -248,7 +248,22 @@ func init() {
 	{
 		var acc [6]bool
 		var fun [6]func(rune) int
-		fun[1] = func(r rune) int {
+		acc[3] = true
+		fun[3] = func(r rune) int {
+			switch r {
+			case 92:
+				return -1
+			case 34:
+				return -1
+			default:
+				switch {
+				default:
+					return -1
+				}
+			}
+			panic("unreachable")
+		}
+		fun[4] = func(r rune) int {
 			switch r {
 			case 92:
 				return 2
@@ -262,7 +277,7 @@ func init() {
 			}
 			panic("unreachable")
 		}
-		fun[5] = func(r rune) int {
+		fun[1] = func(r rune) int {
 			switch r {
 			case 92:
 				return 2
@@ -290,17 +305,16 @@ func init() {
 			}
 			panic("unreachable")
 		}
-		acc[3] = true
-		fun[3] = func(r rune) int {
+		fun[5] = func(r rune) int {
 			switch r {
 			case 92:
-				return -1
+				return 2
 			case 34:
-				return -1
+				return 3
 			default:
 				switch {
 				default:
-					return -1
+					return 4
 				}
 			}
 			panic("unreachable")
@@ -315,20 +329,6 @@ func init() {
 				switch {
 				default:
 					return 5
-				}
-			}
-			panic("unreachable")
-		}
-		fun[4] = func(r rune) int {
-			switch r {
-			case 92:
-				return 2
-			case 34:
-				return 3
-			default:
-				switch {
-				default:
-					return 4
 				}
 			}
 			panic("unreachable")
@@ -496,5 +496,11 @@ func (yylex Lexer) Lex(lval *yySymType) int {
 	}
 	return 0
 }
-
-//
+func init() {
+	/* (this has to be in a func or lex doesn't write it out to final file)
+	 *
+	 * If this file is not lexer.nn, it was generated from lexer.nn and
+	 * should not be edited directly.
+	 *
+	 */
+}

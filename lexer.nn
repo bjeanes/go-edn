@@ -11,5 +11,14 @@
 						return tString
 					}
 // 
+
 package edn
-//
+
+func init() {
+	/* (this has to be in a func or lex doesn't write it out to final file)
+	 *
+	 * If this file is not lexer.nn, it was generated from lexer.nn and
+	 * should not be edited directly.
+	 *
+	 */
+}
