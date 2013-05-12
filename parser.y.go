@@ -41,7 +41,7 @@ const yyEofCode = 1
 const yyErrCode = 2
 const yyMaxDepth = 200
 
-//line parser.y:48
+//line parser.y:60
 
 //line yacctab:1
 var yyExca = []int{
@@ -50,44 +50,47 @@ var yyExca = []int{
 	-2, 0,
 }
 
-const yyNprod = 8
+const yyNprod = 12
 const yyPrivate = 57344
 
 var yyTokenNames []string
 var yyStates []string
 
-const yyLast = 10
+const yyLast = 16
 
 var yyAct = []int{
 
-	6, 10, 7, 9, 5, 8, 4, 3, 2, 1,
+	8, 16, 9, 15, 11, 10, 14, 13, 12, 7,
+	6, 5, 4, 3, 2, 1,
 }
 var yyPact = []int{
 
-	-6, -1000, -1000, -1000, -1000, -1000, -4, -7, -1000, -1000,
-	-1000,
+	-6, -1000, -1000, -1000, -1000, -1000, -1000, -1000, 1, -2,
+	-1000, -5, -1000, -1000, -1000, -8, -1000,
 }
 var yyPgo = []int{
 
-	0, 9, 8, 7, 6, 4,
+	0, 15, 14, 13, 12, 11, 10, 9,
 }
 var yyR1 = []int{
 
-	0, 1, 2, 2, 2, 5, 3, 4,
+	0, 1, 2, 2, 2, 2, 2, 5, 6, 7,
+	3, 4,
 }
 var yyR2 = []int{
 
-	0, 1, 1, 1, 1, 1, 2, 2,
+	0, 1, 1, 1, 1, 1, 1, 1, 3, 2,
+	2, 2,
 }
 var yyChk = []int{
 
-	-1000, -1, -2, -3, -4, -5, 6, 8, 11, 7,
-	8,
+	-1000, -1, -2, -3, -4, -5, -6, -7, 6, 8,
+	11, 10, 7, 9, 8, 8, 9,
 }
 var yyDef = []int{
 
-	0, -2, 1, 2, 3, 4, 0, 0, 5, 6,
-	7,
+	0, -2, 1, 2, 3, 4, 5, 6, 0, 0,
+	7, 0, 10, 9, 11, 0, 8,
 }
 var yyTok1 = []int{
 
@@ -328,18 +331,24 @@ yydefault:
 	case 1:
 		//line parser.y:25
 		{ lastResult = Value(yyVAL.v) }
-	case 5:
-		//line parser.y:35
+	case 7:
+		//line parser.y:37
 		{ 
 			s := string(yyVAL.v.(String))
 			yyVAL.v = String(s[1:len(s)-1]) 
 		  }
-	case 6:
-		//line parser.y:42
+	case 8:
+		//line parser.y:45
+		{ yyVAL.v = Set{} }
+	case 9:
+		//line parser.y:50
+		{ yyVAL.v = Map{} }
+	case 10:
+		//line parser.y:54
 		{ yyVAL.v = new(List) }
-	case 7:
-		//line parser.y:46
-		{ yyVAL.v = make(Vector, 0) }
+	case 11:
+		//line parser.y:58
+		{ yyVAL.v = Vector{} }
 	}
 	goto yystack /* stack new state and value */
 }

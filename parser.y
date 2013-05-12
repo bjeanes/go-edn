@@ -23,12 +23,14 @@ func init() {
 %% 
 input
 	: value { lastResult = Value($$.v) }
-;
+	;
 
 value
 	: list
 	| vector
 	| string
+	| set
+	| map
 	;
 
 string
@@ -38,11 +40,21 @@ string
 	  }
 	;
 
+set
+	: tOctothorpe tOpenBrace tCloseBrace
+	  { $$.v = Set{} }
+	;
+
+map
+	: tOpenBrace tCloseBrace
+	  { $$.v = Map{} }
+	;
+
 list
 	: tOpenParen tCloseParen { $$.v = new(List) }
 	;
 
 vector
-	: tOpenBrace tOpenBrace { $$.v = make(Vector, 0) }
+	: tOpenBrace tOpenBrace { $$.v = Vector{} }
 	;
 %%
