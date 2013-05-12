@@ -1,28 +1,14 @@
-/\[/                { token = tOpenBracket; return  }
-/\]/                { token = tCloseBracket; return }
-/{/                 { token = tOpenBrace; return    }
-/}/                 { token = tCloseBrace; return   }
-/\(/                { token = tOpenParen; return    }
-/\)/                { token = tCloseParen; return   }
-/#/                 { token = tOctothorpe; return   }
+/\[/                { return tOpenBracket  }
+/\]/                { return tCloseBracket }
+/{/                 { return tOpenBrace    }
+/}/                 { return tCloseBrace   }
+/\(/                { return tOpenParen    }
+/\)/                { return tCloseParen   }
+/#/                 { return tOctothorpe   }
 /"(\\.|[^"\\])*"/   {
-						token = tString
 						lval.v = String(yylex.Text())
-						return
+						return tString
 					}
 // 
 package edn
-
-/*
-	Have to create Error(string) and Lex(*yySymType) manually
-	because I need to use the NN_FUN macro in order to introduce
-	locally-scoped variables to use as state.
-*/
-func (yylex Lexer) Error(e string) {
-	panic(e)
-}
-
-func (yylex Lexer) Lex(lval *yySymType) (token int) {
-	NN_FUN(yylex)
-	return
-}
+//

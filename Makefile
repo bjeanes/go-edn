@@ -7,7 +7,7 @@ setup: parser lexer
 	@:
 
 lexer:
-	nex -s < lexer.nn > lexer.nn.go
+	nex < lexer.nn > lexer.nn.go
 	go fmt lexer.nn.go
 
 parser:
