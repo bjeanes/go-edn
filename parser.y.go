@@ -1,30 +1,39 @@
 
 //line parser.y:2
 package edn 
-import "fmt" 
+import "fmt"
 
-//line parser.y:6
-type yySymType struct {
-	yys int 
-	n int
+// Eww... global state. TODO: how else to get actual data out of from yyParse?
+var lastResult Value
+
+func init() {
+	//yyDebug = 4
 }
 
-const openBracket = 57346
-const closeBracket = 57347
-const openParen = 57348
-const closeParen = 57349
-const openBrace = 57350
-const closeBrace = 57351
-const octothorpe = 57352
+//line parser.y:13
+type yySymType struct {
+	yys int 
+	v Value
+}
+
+const tOpenBracket = 57346
+const tCloseBracket = 57347
+const tOpenParen = 57348
+const tCloseParen = 57349
+const tOpenBrace = 57350
+const tCloseBrace = 57351
+const tOctothorpe = 57352
+const tString = 57353
 
 var yyToknames = []string{
-	"openBracket",
-	"closeBracket",
-	"openParen",
-	"closeParen",
-	"openBrace",
-	"closeBrace",
-	"octothorpe",
+	"tOpenBracket",
+	"tCloseBracket",
+	"tOpenParen",
+	"tCloseParen",
+	"tOpenBrace",
+	"tCloseBrace",
+	"tOctothorpe",
+	"tString",
 }
 var yyStatenames = []string{}
 
@@ -32,8 +41,7 @@ const yyEofCode = 1
 const yyErrCode = 2
 const yyMaxDepth = 200
 
-//line parser.y:28
- 
+//line parser.y:45
 
 //line yacctab:1
 var yyExca = []int{
@@ -48,21 +56,20 @@ const yyPrivate = 57344
 var yyTokenNames []string
 var yyStates []string
 
-const yyLast = 11
+const yyLast = 10
 
 var yyAct = []int{
 
-	8, 6, 10, 7, 9, 11, 5, 4, 3, 2,
-	1,
+	6, 10, 7, 9, 5, 8, 4, 3, 2, 1,
 }
 var yyPact = []int{
 
-	-11, -1000, -1000, -1000, -1000, -1000, -9, -13, -6, -1000,
-	-1000, -1000,
+	-6, -1000, -1000, -1000, -1000, -1000, -4, -7, -1000, -1000,
+	-1000,
 }
 var yyPgo = []int{
 
-	0, 10, 9, 8, 7, 6,
+	0, 9, 8, 7, 6, 4,
 }
 var yyR1 = []int{
 
@@ -70,34 +77,25 @@ var yyR1 = []int{
 }
 var yyR2 = []int{
 
-	0, 1, 1, 1, 1, 2, 2, 2,
+	0, 1, 1, 1, 1, 1, 2, 2,
 }
 var yyChk = []int{
 
-	-1000, -1, -2, -3, -4, -5, 12, 14, 11, 13,
-	15, 11,
+	-1000, -1, -2, -3, -4, -5, 6, 8, 11, 7,
+	8,
 }
 var yyDef = []int{
 
-	0, -2, 1, 2, 3, 4, 0, 0, 0, 6,
-	7, 5,
+	0, -2, 1, 2, 3, 4, 0, 0, 5, 6,
+	7,
 }
 var yyTok1 = []int{
 
-	1, 3, 3, 3, 3, 3, 3, 3, 3, 3,
-	3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
-	3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
-	3, 3, 3, 3, 11, 3, 3, 3, 3, 3,
-	12, 13, 3, 3, 3, 3, 3, 3, 3, 3,
-	3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
-	3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
-	3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
-	3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
-	3, 14, 3, 15,
+	1,
 }
 var yyTok2 = []int{
 
-	2, 3, 4, 5, 6, 7, 8, 9, 10,
+	2, 3, 4, 5, 6, 7, 8, 9, 10, 11,
 }
 var yyTok3 = []int{
 	0,
@@ -327,6 +325,15 @@ yydefault:
 	// dummy call; replaced with literal code
 	switch yynt {
 
+	case 1:
+		//line parser.y:25
+		{ lastResult = Value(yyVAL.v) }
+	case 6:
+		//line parser.y:39
+		{ yyVAL.v = new(List) }
+	case 7:
+		//line parser.y:43
+		{ yyVAL.v = make(Vector, 0) }
 	}
 	goto yystack /* stack new state and value */
 }

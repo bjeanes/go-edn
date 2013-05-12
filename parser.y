@@ -1,28 +1,45 @@
 %{
 package edn 
-import "fmt" 
+import "fmt"
+
+// Eww... global state. TODO: how else to get actual data out of from yyParse?
+var lastResult Value
+
+func init() {
+	//yyDebug = 4
+}
 %}
 
 %union { 
-	n int
+	v Value
 } 
 
-%token openBracket closeBracket openParen closeParen openBrace closeBrace octothorpe
+%token tOpenBracket tCloseBracket
+%token tOpenParen tCloseParen
+%token tOpenBrace tCloseBrace
+%token tOctothorpe
+%token tString
+
 %% 
-input: value
+input
+	: value { lastResult = Value($$.v) }
 ;
 
-value: list
-| vector
-| string
-;
+value
+	: list
+	| vector
+	| string
+	;
 
-string: '"' '"'
-;
+string
+	: tString
+	;
 
-list: '(' ')'
-;
+list
+	: tOpenParen tCloseParen { $$.v = new(List) }
+	;
 
-vector: '[' ']'
-;
-%% 
+vector
+	: tOpenBrace tOpenBrace { $$.v = make(Vector, 0) }
+	;
+%%

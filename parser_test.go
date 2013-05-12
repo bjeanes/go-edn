@@ -1,6 +1,8 @@
 package edn
 
-import . "testing"
+import (
+	. "testing"
+)
 
 func TestDoesNotParseEmptyInput(t *T) {
 	_, err := ParseString("")

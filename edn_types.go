@@ -1,8 +1,11 @@
 package edn
 
-import "container/list"
-import "fmt"
-import "bytes"
+import (
+	"bytes"
+	"container/list"
+	"fmt"
+	"reflect"
+)
 
 type Vector []Value
 type List list.List
@@ -66,8 +69,15 @@ func (m Map) String() string {
 	return buffer.String()
 }
 
-func (vec Vector) Equals(v Value) bool {
-	panic("unimplemented")
+func (vec Vector) Equals(val Value) bool {
+	if v, ok := val.(Vector); ok {
+		if len(vec) != len(v) {
+			return false
+		}
+
+		return reflect.DeepEqual(vec, v)
+	}
+
 	return false
 }
 
@@ -86,8 +96,15 @@ func (vec Vector) String() string {
 	return buffer.String()
 }
 
-func (l *List) Equals(v Value) bool {
-	panic("unimplemented")
+func (l *List) Equals(val Value) bool {
+	if v, ok := val.(*List); ok {
+		if (*list.List)(v).Len() != (*list.List)(l).Len() {
+			return false
+		}
+
+		return reflect.DeepEqual(l, v)
+	}
+
 	return false
 }
 

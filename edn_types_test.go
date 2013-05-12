@@ -1,7 +1,9 @@
 package edn
 
-import . "testing"
-import ll "container/list"
+import (
+	ll "container/list"
+	. "testing"
+)
 
 func assertEqual(expect, actual interface{}, t *T) {
 	if expect != actual {
