@@ -4,6 +4,17 @@ import (
 	. "testing"
 )
 
+func parse(s string, t *T) (val Value) {
+	val, err := ParseString(s)
+
+	if err != nil {
+		t.Errorf("Expected parsing %+v to succeed. %v", s, err)
+		t.FailNow()
+	}
+
+	return
+}
+
 func TestDoesNotParseEmptyInput(t *T) {
 	_, err := ParseString("")
 
@@ -13,22 +24,14 @@ func TestDoesNotParseEmptyInput(t *T) {
 }
 
 func TestParseList(t *T) {
-	val, err := ParseString("()")
-
-	if err != nil {
-		t.Errorf("Expected parsing \"()\" to succeed. %v", err)
-	}
+	val := parse("()", t)
 
 	if !new(List).Equals(val) {
 		t.Errorf("Expected parsing \"()\" to return an empty list, got %+v", val)
 	}
 
 	str := `(() "abc" [] "def")`
-	val, err = ParseString(str)
-
-	if err != nil {
-		t.Errorf("Expected parsing %#v to succeed. %v", str, err)
-	}
+	val = parse(str, t)
 
 	l := new(List)
 	ll := l.raw()
@@ -42,23 +45,17 @@ func TestParseList(t *T) {
 	}
 }
 
+func TestParseVector(t *T) {
+	parse(`[]`, t)
+}
+
 func TestParseString(t *T) {
-	val, err := ParseString(`""`)
-
-	if err != nil {
-		t.Errorf("Expected parsing '\"\"' to succeed. %v", err)
-	}
-
+	val := parse(`""`, t)
 	if val == nil || !val.Equals(String("")) {
 		t.Errorf("Expected \"\", got %v", val)
 	}
 
-	val, err = ParseString(`"abc"`)
-
-	if err != nil {
-		t.Errorf("Expected parsing '\"abc\"' to succeed. %v", err)
-	}
-
+	val = parse(`"abc"`, t)
 	if val == nil || !val.Equals(String("abc")) {
 		t.Errorf("Expected \"abc\", got %v", val)
 	}
