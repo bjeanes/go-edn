@@ -32,7 +32,10 @@ value
 	;
 
 string
-	: tString
+	: tString { 
+		s := string($$.v.(String))
+		$$.v = String(s[1:len(s)-1]) 
+	  }
 	;
 
 list
