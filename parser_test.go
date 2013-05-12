@@ -9,10 +9,15 @@ func parse(s string, t *T) (val Value) {
 
 	if err != nil {
 		t.Errorf("Expected parsing %+v to succeed. %v", s, err)
-		t.FailNow()
 	}
 
 	return
+}
+
+func assertValueEqual(actual, expected Value, t *T) {
+	if !expected.Equals(actual) {
+		t.Errorf("Expected %v, got %v", expected, actual)
+	}
 }
 
 func TestDoesNotParseEmptyInput(t *T) {
@@ -46,7 +51,11 @@ func TestParseList(t *T) {
 }
 
 func TestParseVector(t *T) {
-	parse(`[]`, t)
+	assertValueEqual(parse(`[]`, t), Vector{}, t)
+	assertValueEqual(parse(`[[]]`, t), Vector{Vector{}}, t)
+	l := new(List)
+	l.raw().PushBack(String("abc"))
+	assertValueEqual(parse(`[[("abc")] "def"]`, t), Vector{Vector{l}, String("def")}, t)
 }
 
 func TestParseString(t *T) {

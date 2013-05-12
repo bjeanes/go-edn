@@ -79,6 +79,6 @@ list
 	;
 
 vector
-	: tOpenBracket tCloseBracket { $$.v = Vector{} }
+	: tOpenBracket values tCloseBracket { $$.v = Value(Sequence(Vector{}).Into(Sequence($2.v.(*List)))) }
 	;
 %%
