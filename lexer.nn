@@ -6,7 +6,8 @@
 /\)/                { return tCloseParen   }
 /#/                 { return tOctothorpe   }
 /"(\\.|[^"\\])*"/   {
-						lval.v = String(yylex.Text())
+						s := yylex.Text()
+						lval.v = String(s[1:len(s)-1])
 						return tString
 					}
 // 

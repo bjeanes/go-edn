@@ -41,7 +41,7 @@ const yyEofCode = 1
 const yyErrCode = 2
 const yyMaxDepth = 200
 
-//line parser.y:60
+//line parser.y:57
 
 //line yacctab:1
 var yyExca = []int{
@@ -331,23 +331,17 @@ yydefault:
 	case 1:
 		//line parser.y:25
 		{ lastResult = Value(yyVAL.v) }
-	case 7:
-		//line parser.y:37
-		{ 
-			s := string(yyVAL.v.(String))
-			yyVAL.v = String(s[1:len(s)-1]) 
-		  }
 	case 8:
-		//line parser.y:45
+		//line parser.y:42
 		{ yyVAL.v = Set{} }
 	case 9:
-		//line parser.y:50
+		//line parser.y:47
 		{ yyVAL.v = Map{} }
 	case 10:
-		//line parser.y:54
+		//line parser.y:51
 		{ yyVAL.v = new(List) }
 	case 11:
-		//line parser.y:58
+		//line parser.y:55
 		{ yyVAL.v = Vector{} }
 	}
 	goto yystack /* stack new state and value */
