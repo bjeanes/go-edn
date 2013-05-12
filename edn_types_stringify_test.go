@@ -1,9 +1,6 @@
 package edn
 
-import (
-	ll "container/list"
-	. "testing"
-)
+import . "testing"
 
 func assertEqual(expect, actual interface{}, t *T) {
 	if expect != actual {
@@ -24,7 +21,7 @@ func TestVectorString(t *T) {
 
 func TestListString(t *T) {
 	list := new(List)
-	ll := (*ll.List)(list)
+	ll := list.raw()
 
 	assertEqual("()", list.String(), t)
 
