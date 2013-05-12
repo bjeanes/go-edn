@@ -13,15 +13,7 @@ func (l *List) raw() *list.List {
 }
 
 func (l *List) Equals(val Value) bool {
-	if v, ok := val.(*List); ok {
-		if (*list.List)(v).Len() != (*list.List)(l).Len() {
-			return false
-		}
-
-		return reflect.DeepEqual(l, v)
-	}
-
-	return false
+	return reflect.DeepEqual(l, val)
 }
 
 func (l *List) String() string {

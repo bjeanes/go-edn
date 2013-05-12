@@ -2,14 +2,13 @@ package edn
 
 import (
 	"bytes"
-	//"reflect"
+	"reflect"
 )
 
 type Map map[Value]Value
 
 func (m Map) Equals(v Value) bool {
-	panic("unimplemented")
-	return false
+	return reflect.DeepEqual(m, v)
 }
 
 func (m Map) String() string {

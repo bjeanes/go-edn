@@ -2,15 +2,13 @@ package edn
 
 import (
 	"bytes"
-
-//"reflect"
+	"reflect"
 )
 
 type Set map[Value]bool
 
 func (s Set) Equals(v Value) bool {
-	panic("unimplemented")
-	return false
+	return reflect.DeepEqual(s, v)
 }
 
 func (s Set) String() string {

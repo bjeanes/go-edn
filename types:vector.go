@@ -8,15 +8,7 @@ import (
 type Vector []Value
 
 func (vec Vector) Equals(val Value) bool {
-	if v, ok := val.(Vector); ok {
-		if len(vec) != len(v) {
-			return false
-		}
-
-		return reflect.DeepEqual(vec, v)
-	}
-
-	return false
+	return reflect.DeepEqual(vec, val)
 }
 
 func (vec Vector) String() string {
