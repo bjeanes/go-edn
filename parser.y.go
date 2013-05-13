@@ -357,7 +357,7 @@ yydefault:
 	case 14:
 		//line parser.y:56
 		{
-			yyVAL.v.(*List).raw().PushBack(yyS[yypt-1].v)
+			yyS[yypt-3].v.(*List).raw().PushBack(yyS[yypt-1].v)
 		  }
 	case 17:
 		//line parser.y:71

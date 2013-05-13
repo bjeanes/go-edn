@@ -54,7 +54,7 @@ ws✳
 values
 	: ws✳ { $$.v = Value(new(List))}
 	| values ws✳ value ws✳ {
-		$$.v.(*List).raw().PushBack($3.v)
+		$1.v.(*List).raw().PushBack($3.v)
 	  }
 	;
 
