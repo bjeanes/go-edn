@@ -42,6 +42,16 @@ func (this *List) Each(f func(Value, int)) {
 }
 
 func (this *List) Into(other Sequence) Sequence {
+	list := new(List)
+	list.raw().Init()
+
+	add := func(value Value, _ int) {
+		list.raw().PushBack(value)
+	}
+
+	this.Each(add)
+	other.Each(add)
+
 	return new(List)
 }
 func (this *List) Length() int {

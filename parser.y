@@ -65,8 +65,8 @@ string
 	;
 
 set
-	: tOctothorpe tOpenBrace tCloseBrace
-	  { $$.v = Set{} }
+	: tOctothorpe tOpenBrace values tCloseBrace
+	  { $$.v = Sequence(Set{}).Into(Sequence($3.v.(*List))) }
 	;
 
 map
@@ -79,6 +79,6 @@ list
 	;
 
 vector
-	: tOpenBracket values tCloseBracket { $$.v = Value(Sequence(Vector{}).Into(Sequence($2.v.(*List)))) }
+	: tOpenBracket values tCloseBracket { $$.v = Sequence(Vector{}).Into(Sequence($2.v.(*List))) }
 	;
 %%
