@@ -1,10 +1,12 @@
 
 //line parser.y:2
-/*
- * If this file is not parser.y, it was generated from parser.y and
- * should not be edited directly.
- */
 package edn 
+
+/*
+If this file is not parser.y, it was generated from parser.y and
+should not be edited directly.
+*/
+
 import "fmt"
 
 // Eww... global state. TODO: how else to get actual data out of from yyParse?
@@ -14,7 +16,7 @@ func init() {
 	//yyDebug = 4
 }
 
-//line parser.y:17
+//line parser.y:19
 type yySymType struct {
 	yys int 
 	v Value
@@ -49,7 +51,7 @@ const yyEofCode = 1
 const yyErrCode = 2
 const yyMaxDepth = 200
 
-//line parser.y:86
+//line parser.y:88
 
 //line yacctab:1
 var yyExca = []int{
@@ -349,27 +351,27 @@ yydefault:
 	switch yynt {
 
 	case 1:
-		//line parser.y:30
+		//line parser.y:32
 		{ lastResult = Value(yyS[yypt-1].v) }
 	case 13:
-		//line parser.y:55
+		//line parser.y:57
 		{ yyVAL.v = Value(new(List))}
 	case 14:
-		//line parser.y:56
+		//line parser.y:58
 		{
 			yyS[yypt-3].v.(*List).raw().PushBack(yyS[yypt-1].v)
 		  }
 	case 17:
-		//line parser.y:71
+		//line parser.y:73
 		{ yyVAL.v = Sequence(Set{}).Into(Sequence(yyS[yypt-1].v.(*List))) }
 	case 18:
-		//line parser.y:76
+		//line parser.y:78
 		{ yyVAL.v = Map{} }
 	case 19:
-		//line parser.y:80
+		//line parser.y:82
 		{ yyVAL.v = yyS[yypt-1].v }
 	case 20:
-		//line parser.y:84
+		//line parser.y:86
 		{ yyVAL.v = Sequence(Vector{}).Into(Sequence(yyS[yypt-1].v.(*List))) }
 	}
 	goto yystack /* stack new state and value */
