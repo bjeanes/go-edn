@@ -16,7 +16,7 @@ type family struct {
 	endcase int
 }
 
-var a0 [8]dfa
+var a0 [11]dfa
 var a []family
 
 func init() {
@@ -27,8 +27,16 @@ func init() {
 		acc[1] = true
 		fun[1] = func(r rune) int {
 			switch r {
-			case 91:
-				return -1
+			case 44:
+				return 1
+			case 10:
+				return 1
+			case 32:
+				return 1
+			case 13:
+				return 1
+			case 9:
+				return 1
 			default:
 				switch {
 				default:
@@ -39,7 +47,15 @@ func init() {
 		}
 		fun[0] = func(r rune) int {
 			switch r {
-			case 91:
+			case 10:
+				return 1
+			case 32:
+				return 1
+			case 13:
+				return 1
+			case 9:
+				return 1
+			case 44:
 				return 1
 			default:
 				switch {
@@ -58,7 +74,7 @@ func init() {
 		var fun [2]func(rune) int
 		fun[0] = func(r rune) int {
 			switch r {
-			case 93:
+			case 91:
 				return 1
 			default:
 				switch {
@@ -71,7 +87,7 @@ func init() {
 		acc[1] = true
 		fun[1] = func(r rune) int {
 			switch r {
-			case 93:
+			case 91:
 				return -1
 			default:
 				switch {
@@ -88,10 +104,11 @@ func init() {
 	{
 		var acc [2]bool
 		var fun [2]func(rune) int
-		fun[0] = func(r rune) int {
+		acc[1] = true
+		fun[1] = func(r rune) int {
 			switch r {
-			case 123:
-				return 1
+			case 93:
+				return -1
 			default:
 				switch {
 				default:
@@ -100,11 +117,10 @@ func init() {
 			}
 			panic("unreachable")
 		}
-		acc[1] = true
-		fun[1] = func(r rune) int {
+		fun[0] = func(r rune) int {
 			switch r {
-			case 123:
-				return -1
+			case 93:
+				return 1
 			default:
 				switch {
 				default:
@@ -123,7 +139,7 @@ func init() {
 		acc[1] = true
 		fun[1] = func(r rune) int {
 			switch r {
-			case 125:
+			case 123:
 				return -1
 			default:
 				switch {
@@ -135,7 +151,7 @@ func init() {
 		}
 		fun[0] = func(r rune) int {
 			switch r {
-			case 125:
+			case 123:
 				return 1
 			default:
 				switch {
@@ -152,10 +168,11 @@ func init() {
 	{
 		var acc [2]bool
 		var fun [2]func(rune) int
-		fun[0] = func(r rune) int {
+		acc[1] = true
+		fun[1] = func(r rune) int {
 			switch r {
-			case 40:
-				return 1
+			case 125:
+				return -1
 			default:
 				switch {
 				default:
@@ -164,11 +181,10 @@ func init() {
 			}
 			panic("unreachable")
 		}
-		acc[1] = true
-		fun[1] = func(r rune) int {
+		fun[0] = func(r rune) int {
 			switch r {
-			case 40:
-				return -1
+			case 125:
+				return 1
 			default:
 				switch {
 				default:
@@ -184,11 +200,10 @@ func init() {
 	{
 		var acc [2]bool
 		var fun [2]func(rune) int
-		acc[1] = true
-		fun[1] = func(r rune) int {
+		fun[0] = func(r rune) int {
 			switch r {
-			case 41:
-				return -1
+			case 40:
+				return 1
 			default:
 				switch {
 				default:
@@ -197,10 +212,11 @@ func init() {
 			}
 			panic("unreachable")
 		}
-		fun[0] = func(r rune) int {
+		acc[1] = true
+		fun[1] = func(r rune) int {
 			switch r {
-			case 41:
-				return 1
+			case 40:
+				return -1
 			default:
 				switch {
 				default:
@@ -219,7 +235,7 @@ func init() {
 		acc[1] = true
 		fun[1] = func(r rune) int {
 			switch r {
-			case 35:
+			case 41:
 				return -1
 			default:
 				switch {
@@ -231,7 +247,7 @@ func init() {
 		}
 		fun[0] = func(r rune) int {
 			switch r {
-			case 35:
+			case 41:
 				return 1
 			default:
 				switch {
@@ -246,28 +262,12 @@ func init() {
 		a0[6].id = 6
 	}
 	{
-		var acc [6]bool
-		var fun [6]func(rune) int
-		fun[4] = func(r rune) int {
+		var acc [2]bool
+		var fun [2]func(rune) int
+		acc[1] = true
+		fun[1] = func(r rune) int {
 			switch r {
-			case 34:
-				return 3
-			case 92:
-				return 2
-			default:
-				switch {
-				default:
-					return 4
-				}
-			}
-			panic("unreachable")
-		}
-		acc[3] = true
-		fun[3] = func(r rune) int {
-			switch r {
-			case 34:
-				return -1
-			case 92:
+			case 35:
 				return -1
 			default:
 				switch {
@@ -279,9 +279,7 @@ func init() {
 		}
 		fun[0] = func(r rune) int {
 			switch r {
-			case 92:
-				return -1
-			case 34:
+			case 35:
 				return 1
 			default:
 				switch {
@@ -291,25 +289,114 @@ func init() {
 			}
 			panic("unreachable")
 		}
+		a0[7].acc = acc[:]
+		a0[7].f = fun[:]
+		a0[7].id = 7
+	}
+	{
+		var acc [4]bool
+		var fun [4]func(rune) int
+		acc[3] = true
+		fun[3] = func(r rune) int {
+			switch r {
+			case 58:
+				return -1
+			default:
+				switch {
+				case 48 <= r && r <= 57:
+					return 3
+				case 65 <= r && r <= 90:
+					return 3
+				case 97 <= r && r <= 122:
+					return 3
+				default:
+					return -1
+				}
+			}
+			panic("unreachable")
+		}
 		fun[1] = func(r rune) int {
 			switch r {
-			case 92:
-				return 2
-			case 34:
-				return 3
+			case 58:
+				return -1
 			default:
 				switch {
+				case 48 <= r && r <= 57:
+					return -1
+				case 65 <= r && r <= 90:
+					return 2
+				case 97 <= r && r <= 122:
+					return 2
 				default:
-					return 4
+					return -1
 				}
 			}
 			panic("unreachable")
 		}
-		fun[5] = func(r rune) int {
+		acc[2] = true
+		fun[2] = func(r rune) int {
+			switch r {
+			case 58:
+				return -1
+			default:
+				switch {
+				case 48 <= r && r <= 57:
+					return 3
+				case 65 <= r && r <= 90:
+					return 3
+				case 97 <= r && r <= 122:
+					return 3
+				default:
+					return -1
+				}
+			}
+			panic("unreachable")
+		}
+		fun[0] = func(r rune) int {
+			switch r {
+			case 58:
+				return 1
+			default:
+				switch {
+				case 48 <= r && r <= 57:
+					return -1
+				case 65 <= r && r <= 90:
+					return -1
+				case 97 <= r && r <= 122:
+					return -1
+				default:
+					return -1
+				}
+			}
+			panic("unreachable")
+		}
+		a0[8].acc = acc[:]
+		a0[8].f = fun[:]
+		a0[8].id = 8
+	}
+	{
+		var acc [6]bool
+		var fun [6]func(rune) int
+		acc[2] = true
+		fun[2] = func(r rune) int {
 			switch r {
 			case 34:
-				return 3
+				return -1
 			case 92:
+				return -1
+			default:
+				switch {
+				default:
+					return -1
+				}
+			}
+			panic("unreachable")
+		}
+		fun[4] = func(r rune) int {
+			switch r {
+			case 92:
+				return 3
+			case 34:
 				return 2
 			default:
 				switch {
@@ -319,7 +406,7 @@ func init() {
 			}
 			panic("unreachable")
 		}
-		fun[2] = func(r rune) int {
+		fun[3] = func(r rune) int {
 			switch r {
 			case 34:
 				return 5
@@ -333,11 +420,81 @@ func init() {
 			}
 			panic("unreachable")
 		}
-		a0[7].acc = acc[:]
-		a0[7].f = fun[:]
-		a0[7].id = 7
+		fun[5] = func(r rune) int {
+			switch r {
+			case 92:
+				return 3
+			case 34:
+				return 2
+			default:
+				switch {
+				default:
+					return 4
+				}
+			}
+			panic("unreachable")
+		}
+		fun[1] = func(r rune) int {
+			switch r {
+			case 34:
+				return 2
+			case 92:
+				return 3
+			default:
+				switch {
+				default:
+					return 4
+				}
+			}
+			panic("unreachable")
+		}
+		fun[0] = func(r rune) int {
+			switch r {
+			case 34:
+				return 1
+			case 92:
+				return -1
+			default:
+				switch {
+				default:
+					return -1
+				}
+			}
+			panic("unreachable")
+		}
+		a0[9].acc = acc[:]
+		a0[9].f = fun[:]
+		a0[9].id = 9
 	}
-	a[0].endcase = 8
+	{
+		var acc [2]bool
+		var fun [2]func(rune) int
+		fun[0] = func(r rune) int {
+			switch r {
+			default:
+				switch {
+				default:
+					return 1
+				}
+			}
+			panic("unreachable")
+		}
+		acc[1] = true
+		fun[1] = func(r rune) int {
+			switch r {
+			default:
+				switch {
+				default:
+					return -1
+				}
+			}
+			panic("unreachable")
+		}
+		a0[10].acc = acc[:]
+		a0[10].f = fun[:]
+		a0[10].id = 10
+	}
+	a[0].endcase = 11
 	a[0].a = a0[:]
 }
 func getAction(c *frame) int {
@@ -456,41 +613,56 @@ func (yylex Lexer) Lex(lval *yySymType) int {
 	for !yylex.isDone() {
 		switch yylex.nextAction() {
 		case -1:
-		case 0: //\[/
+		case 0: //[\r\n\t, ]+/
+			{
+				return tWhitespace
+			}
+		case 1: //\[/
 			{
 				return tOpenBracket
 			}
-		case 1: //\]/
+		case 2: //\]/
 			{
 				return tCloseBracket
 			}
-		case 2: //{/
+		case 3: //{/
 			{
 				return tOpenBrace
 			}
-		case 3: //}/
+		case 4: //}/
 			{
 				return tCloseBrace
 			}
-		case 4: //\(/
+		case 5: //\(/
 			{
 				return tOpenParen
 			}
-		case 5: //\)/
+		case 6: //\)/
 			{
 				return tCloseParen
 			}
-		case 6: //#/
+		case 7: //#/
 			{
 				return tOctothorpe
 			}
-		case 7: //"(\\.|[^"\\])*"/
+		case 8: //:[a-zA-Z][a-zA-Z0-9]*/
+			{
+				s := yylex.Text()
+				lval.v = Keyword(s[1:len(s)])
+				return tKeyword
+			}
+		case 9: //"(\\.|[^"\\])*"/
 			{
 				s := yylex.Text()
 				lval.v = String(s[1 : len(s)-1])
 				return tString
 			}
-		case 8: ///
+		case 10: //./
+			{ // (This rule must be last)
+				// Unmatched token...
+				return -1
+			}
+		case 11: ///
 			// [END]
 		}
 	}

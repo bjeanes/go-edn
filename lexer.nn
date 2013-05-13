@@ -1,16 +1,26 @@
-/\[/                { return tOpenBracket  }
-/\]/                { return tCloseBracket }
-/{/                 { return tOpenBrace    }
-/}/                 { return tCloseBrace   }
-/\(/                { return tOpenParen    }
-/\)/                { return tCloseParen   }
-/#/                 { return tOctothorpe   }
-/"(\\.|[^"\\])*"/   {
-						s := yylex.Text()
-						lval.v = String(s[1:len(s)-1])
-						return tString
-					}
-// 
+/[\r\n\t, ]+/			{ return tWhitespace	}
+/\[/					{ return tOpenBracket	}
+/\]/					{ return tCloseBracket	}
+/{/						{ return tOpenBrace		}
+/}/						{ return tCloseBrace	}
+/\(/					{ return tOpenParen 	}
+/\)/					{ return tCloseParen	}
+/#/						{ return tOctothorpe	}
+/:[a-zA-Z][a-zA-Z0-9]*/ {
+							s := yylex.Text()
+							lval.v = Keyword(s[1:len(s)])
+							return tKeyword
+						}
+/"(\\.|[^"\\])*"/   	{
+							s := yylex.Text()
+							lval.v = String(s[1:len(s)-1])
+							return tString
+						}
+/./						{   // (This rule must be last)
+							// Unmatched token...
+							return -1 
+						}
+//
 
 package edn
 

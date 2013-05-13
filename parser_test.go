@@ -90,6 +90,7 @@ func TestParse(t *T) {
 		Vector{},
 		Map{},
 		Set{}.Insert(String("set")),
+		Keyword("key"),
 	)
 
 	actual := parse(`
@@ -97,6 +98,7 @@ func TestParse(t *T) {
 	    ["vec"( "an"	"inner""list",)]
 		(),[]()""[]
 		{}#{"set"}
+		:key
 	)
 	`, t)
 

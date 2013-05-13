@@ -28,6 +28,8 @@ const tOpenBrace = 57350
 const tCloseBrace = 57351
 const tOctothorpe = 57352
 const tString = 57353
+const tKeyword = 57354
+const tWhitespace = 57355
 
 var yyToknames = []string{
 	"tOpenBracket",
@@ -38,6 +40,8 @@ var yyToknames = []string{
 	"tCloseBrace",
 	"tOctothorpe",
 	"tString",
+	"tKeyword",
+	"tWhitespace",
 }
 var yyStatenames = []string{}
 
@@ -45,7 +49,7 @@ const yyEofCode = 1
 const yyErrCode = 2
 const yyMaxDepth = 200
 
-//line parser.y:84
+//line parser.y:86
 
 //line yacctab:1
 var yyExca = []int{
@@ -54,72 +58,67 @@ var yyExca = []int{
 	-2, 0,
 }
 
-const yyNprod = 23
+const yyNprod = 21
 const yyPrivate = 57344
 
 var yyTokenNames []string
 var yyStates []string
 
-const yyLast = 51
+const yyLast = 37
 
 var yyAct = []int{
 
-	14, 2, 13, 31, 24, 23, 17, 18, 19, 20,
-	21, 28, 22, 16, 25, 15, 7, 6, 17, 18,
-	19, 20, 21, 25, 5, 4, 29, 30, 26, 3,
-	25, 1, 27, 17, 18, 19, 20, 21, 17, 18,
-	19, 20, 21, 9, 0, 8, 0, 12, 0, 11,
-	10,
+	22, 2, 6, 21, 14, 31, 13, 20, 17, 5,
+	16, 15, 18, 28, 27, 5, 4, 24, 23, 25,
+	5, 5, 26, 12, 26, 11, 10, 3, 29, 30,
+	26, 32, 19, 9, 8, 7, 1,
 }
 var yyPact = []int{
 
-	39, -1000, -1000, -1000, -1000, -1000, -1000, -1000, 26, 26,
-	-1000, -3, -5, 21, -1000, -1000, 26, -1000, -1000, -1000,
-	-1000, -1000, 6, 26, -1000, 39, -1000, -1000, -1000, -6,
-	-1000, -1000,
+	2, -1000, 0, -1000, 2, -1000, 2, -1000, -1000, -1000,
+	-1000, -1000, -1000, 2, 2, -1000, 9, 10, -1000, -1000,
+	-1000, 7, -1000, 8, 2, -1000, 0, -1000, -1000, -4,
+	2, -1000, -1000,
 }
 var yyPgo = []int{
 
-	0, 31, 1, 29, 25, 24, 17, 16, 13, 15,
-	0, 2,
+	0, 36, 0, 2, 35, 34, 33, 26, 25, 23,
+	16, 27, 3,
 }
 var yyR1 = []int{
 
-	0, 1, 2, 2, 2, 2, 2, 8, 8, 8,
-	8, 8, 9, 9, 10, 10, 11, 11, 5, 6,
-	7, 3, 4,
+	0, 1, 3, 3, 3, 3, 3, 3, 10, 11,
+	11, 2, 2, 12, 12, 9, 6, 7, 8, 4,
+	5,
 }
 var yyR2 = []int{
 
-	0, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-	1, 1, 1, 2, 0, 1, 1, 3, 1, 4,
-	2, 3, 3,
+	0, 3, 1, 1, 1, 1, 1, 1, 1, 1,
+	2, 0, 1, 1, 4, 1, 1, 4, 2, 3,
+	3,
 }
 var yyChk = []int{
 
-	-1000, -1, -2, -3, -4, -5, -6, -7, 6, 4,
-	11, 10, 8, -11, -10, -9, -8, 12, 13, 14,
-	15, 16, -11, 8, 9, -10, 7, -9, 5, -11,
-	-2, 9,
+	-1000, -1, -2, -11, -10, 13, -3, -4, -5, -6,
+	-7, -8, -9, 6, 4, 11, 10, 8, 12, -11,
+	-2, -12, -2, -12, 8, 9, -2, 7, 5, -12,
+	-3, 9, -2,
 }
 var yyDef = []int{
 
-	0, -2, 1, 2, 3, 4, 5, 6, 14, 14,
-	18, 0, 0, 14, 16, 15, 12, 7, 8, 9,
-	10, 11, 14, 14, 20, 0, 21, 13, 22, 14,
-	17, 19,
+	11, -2, 0, 12, 9, 8, 11, 2, 3, 4,
+	5, 6, 7, 11, 11, 16, 0, 0, 15, 10,
+	1, 11, 13, 11, 11, 18, 0, 19, 20, 11,
+	11, 17, 14,
 }
 var yyTok1 = []int{
 
-	1, 3, 3, 3, 3, 3, 3, 3, 3, 13,
-	16, 3, 3, 15, 3, 3, 3, 3, 3, 3,
-	3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
-	3, 3, 12, 3, 3, 3, 3, 3, 3, 3,
-	3, 3, 3, 3, 14,
+	1,
 }
 var yyTok2 = []int{
 
 	2, 3, 4, 5, 6, 7, 8, 9, 10, 11,
+	12, 13,
 }
 var yyTok3 = []int{
 	0,
@@ -350,27 +349,27 @@ yydefault:
 	switch yynt {
 
 	case 1:
-		//line parser.y:29
-		{ lastResult = Value(yyS[yypt-0].v) }
-	case 16:
-		//line parser.y:57
+		//line parser.y:30
+		{ lastResult = Value(yyS[yypt-1].v) }
+	case 13:
+		//line parser.y:55
 		{ yyVAL.v = Value(new(List))}
-	case 17:
-		//line parser.y:58
+	case 14:
+		//line parser.y:56
 		{
-			yyVAL.v.(*List).raw().PushBack(yyS[yypt-0].v)
+			yyVAL.v.(*List).raw().PushBack(yyS[yypt-1].v)
 		  }
-	case 19:
-		//line parser.y:69
+	case 17:
+		//line parser.y:71
 		{ yyVAL.v = Sequence(Set{}).Into(Sequence(yyS[yypt-1].v.(*List))) }
-	case 20:
-		//line parser.y:74
+	case 18:
+		//line parser.y:76
 		{ yyVAL.v = Map{} }
-	case 21:
-		//line parser.y:78
+	case 19:
+		//line parser.y:80
 		{ yyVAL.v = yyS[yypt-1].v }
-	case 22:
-		//line parser.y:82
+	case 20:
+		//line parser.y:84
 		{ yyVAL.v = Sequence(Vector{}).Into(Sequence(yyS[yypt-1].v.(*List))) }
 	}
 	goto yystack /* stack new state and value */

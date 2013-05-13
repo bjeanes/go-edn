@@ -22,11 +22,12 @@ func init() {
 %token tOpenParen tCloseParen
 %token tOpenBrace tCloseBrace
 %token tOctothorpe
-%token tString
+%token tString tKeyword
+%token tWhitespace
 
 %% 
 input
-	: value { lastResult = Value($1.v) }
+	: ws✳ value ws✳ { lastResult = Value($2.v) }
 	;
 
 value
@@ -35,14 +36,11 @@ value
 	| string
 	| set
 	| map
+	| keyword
 	;
 
 ws
-	: " "
-	| "\t"
-	| ","
-	| "\r"
-	| "\n"
+	: tWhitespace
 	;
 
 ws＋
@@ -55,9 +53,13 @@ ws✳
 
 values
 	: ws✳ { $$.v = Value(new(List))}
-	| values ws✳ value {
+	| values ws✳ value ws✳ {
 		$$.v.(*List).raw().PushBack($3.v)
 	  }
+	;
+
+keyword
+	: tKeyword
 	;
 
 string
