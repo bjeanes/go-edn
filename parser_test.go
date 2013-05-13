@@ -9,6 +9,7 @@ func parse(s string, t *T) (val Value) {
 
 	if err != nil {
 		t.Errorf("Expected parsing %+v to succeed. %v", s, err)
+		t.FailNow()
 	}
 
 	return
@@ -16,7 +17,7 @@ func parse(s string, t *T) (val Value) {
 
 func assertValueEqual(actual, expected Value, t *T) {
 	if !expected.Equals(actual) {
-		t.Errorf("Expected %v, got %v", expected, actual)
+		t.Errorf("Expected %+v, got %+v", expected, actual)
 	}
 }
 
@@ -68,4 +69,36 @@ func TestParseString(t *T) {
 	if val == nil || !val.Equals(String("abc")) {
 		t.Errorf("Expected \"abc\", got %v", val)
 	}
+}
+
+func TestParse(t *T) {
+	expected := new(List).Insert(
+		String("abc"),
+		new(List).Insert(String("spaced")),
+		Vector{
+			String("vec"),
+			new(List).Insert(
+				String("an"),
+				String("inner"),
+				String("list"),
+			),
+		},
+		new(List),
+		Vector{},
+		new(List),
+		String(""),
+		Vector{},
+		Map{},
+		Set{}.Insert(String("set")),
+	)
+
+	actual := parse(`
+	("abc" ( "spaced" )
+	    ["vec"( "an"	"inner""list",)]
+		(),[]()""[]
+		{}#{"set"}
+	)
+	`, t)
+
+	assertValueEqual(actual, expected, t)
 }
