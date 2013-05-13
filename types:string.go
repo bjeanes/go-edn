@@ -5,6 +5,7 @@ import (
 )
 
 type String string
+type Character rune // TODO: possibly move out of string file
 
 func (s String) Equals(v Value) bool {
 	return s == v

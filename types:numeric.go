@@ -1,9 +1,12 @@
 package edn
 
 import "fmt"
+import "math/big"
 
 type Int int64
 type Float float64
+type Rational big.Rat
+type BigInt big.Int
 
 func (f Float) Equals(v Value) bool {
 	return f == v
