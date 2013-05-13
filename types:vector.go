@@ -7,7 +7,7 @@ import (
 
 type Vector []Value
 
-//////// Value interface
+//////// Value interface:
 
 func (vec Vector) Equals(val Value) bool {
 	return reflect.DeepEqual(vec, val)
@@ -35,11 +35,9 @@ func (this Vector) Into(other Sequence) Sequence {
 	seq := make(Vector, this.Length(), this.Length()+other.Length())
 	copy(seq, this)
 
-	f := func(val Value, _ int) {
+	other.Each(func(val Value, _ int) {
 		seq = append(seq, val)
-	}
-
-	other.Each(f)
+	})
 
 	return seq
 }

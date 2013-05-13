@@ -2,29 +2,36 @@ package edn
 
 import (
 	"bytes"
-	"container/list"
+	linked "container/list"
 	"reflect"
 )
 
-type List list.List
+type List linked.List
 
-func (l *List) raw() *list.List {
-	return (*list.List)(l)
+func (this *List) raw() *linked.List {
+	return (*linked.List)(this)
 }
 
-//////// Value interface
-
-func (l *List) Equals(val Value) bool {
-	return reflect.DeepEqual(l, val)
+func (this *List) Insert(values ...Value) *List {
+	for _, value := range values {
+		this.raw().PushBack(value)
+	}
+	return this
 }
 
-func (l *List) String() string {
+//////// Value interface:
+
+func (this *List) Equals(other Value) bool {
+	return reflect.DeepEqual(this, other)
+}
+
+func (this *List) String() string {
 	var buffer bytes.Buffer
 	buffer.WriteString("(")
 
-	Sequence(l).Each(func(item Value, i int) {
+	this.Each(func(item Value, i int) {
 		buffer.WriteString(item.String())
-		if i+1 < Sequence(l).Length() {
+		if i+1 < this.Length() {
 			buffer.WriteString(" ")
 		}
 	})
