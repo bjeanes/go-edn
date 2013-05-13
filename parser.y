@@ -26,7 +26,7 @@ func init() {
 %token tWhitespace
 
 %% 
-input
+input /* somebody help me not have to do this: */
 	: ws✳ value ws✳ { lastResult = Value($2.v) }
 	;
 

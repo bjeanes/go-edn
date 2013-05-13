@@ -17,6 +17,9 @@ func (s String) String() string {
 
 type Keyword string
 
+// NOTE: this will allow a Keyword to == a String.
+// TODO: Make Keyword a struct (namespace + word) that
+//       is a distinct type.
 func (this Keyword) Equals(other Value) bool {
 	return this == other
 }
