@@ -10,7 +10,11 @@
 /\\return/				{ lval.v = types.Character('\r'); return tCharacter }
 /\\tab/					{ lval.v = types.Character('\t'); return tCharacter }
 /\\space/				{ lval.v = types.Character(' ');  return tCharacter }
-/\\[a-zA-Z0-9]/			{
+/\\u[0-9A-Fa-f][0-9A-Fa-f][0-9A-Fa-f][0-9A-Fa-f]/
+						{
+							panic("Unicode characters are currently unimplemented")
+						}
+/\\[!-~]/				{
 							s := yylex.Text()[1:]
 							ch, _, _ := strings.NewReader(s).ReadRune()
 							lval.v = types.Character(ch)

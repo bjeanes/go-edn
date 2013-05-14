@@ -78,6 +78,10 @@ func TestParseMap(t *T) {
 
 func TestParseCharacter(t *T) {
 	assertValueEqual(parse(`\r`, t), Character('r'), t)
+	assertValueEqual(parse(`\\`, t), Character('\\'), t)
+	assertValueEqual(parse(`\~`, t), Character('~'), t)
+	assertValueEqual(parse(`\!`, t), Character('!'), t)
+	assertValueEqual(parse(`\[`, t), Character('['), t)
 	assertValueEqual(parse(`\5`, t), Character('5'), t)
 	assertValueEqual(parse(`\space`, t), Character(' '), t)
 	assertValueEqual(parse(`\return`, t), Character('\r'), t)
