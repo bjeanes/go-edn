@@ -21,6 +21,7 @@ parser:
 get-deps:
 	go get -d -v -u github.com/blynn/nex
 	go install github.com/blynn/nex
+	go install github.com/bjeanes/go-edn/types
 
 clean:
 	rm -rf *.output *.nn.go *.y.go
