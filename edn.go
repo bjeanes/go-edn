@@ -31,8 +31,9 @@ func ParseReader(reader io.Reader) (val types.Value, err error) {
 	}()
 
 	lexer := newLexer(reader)
-	if yyParse(lexer) == 0 {
-		val = lastResult
+	result := new(yySymType)
+	if yyParse(lexer, result) == 0 {
+		val = result.v
 	} else {
 		err = errors.New("Error: could not parse provided EDN")
 	}

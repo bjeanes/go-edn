@@ -18,6 +18,9 @@ parser:
 	rm -f parser.y.go
 	go tool yacc -o parser.y.go parser.y
 
+	# Make "yyParse" accept a reference to a result
+	sed -i '' 's:yyParse(yylex yyLexer) int:yyParse(yylex yyLexer, result *yySymType) int:' parser.y.go
+
 get-deps:
 	go get -d -v -u github.com/blynn/nex
 	go install github.com/blynn/nex

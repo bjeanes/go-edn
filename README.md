@@ -19,13 +19,6 @@ An [EDN][edn] parser for Go.
      native types as well as requiring all EDN types to meet the 
      [`Hasher` and `Equalser` interfaces][gohash interfaces].
 
-* [Go's YACC tool][yacc] does not allow customizing the
-  signature of the generated parse function (such as I believe Bison does).
-  This means that in order to extract the data out of the parser, global state
-  is involved, making the parser non-parallelizable. I hope to discover an
-  alternate way to achieve this goal that does not find global state. Help
-  welcome!
-
 ## Building
 
 **Note:** Development on this library is done against Go 1.1. In particular,

@@ -8,10 +8,6 @@ should not be edited directly.
 
 import "github.com/bjeanes/go-edn/types"
 
-
-// Eww... global state. TODO: how else to get actual data out of from yyParse?
-var lastResult types.Value
-
 func init() {
 	//yyDebug = 4
 }
@@ -30,7 +26,7 @@ func init() {
 
 %% 
 input /* somebody help me not have to do this: */
-	: ws✳ value ws✳ { lastResult = types.Value($2.v) }
+	: ws✳ value ws✳ { result.v = $2.v }
 	;
 
 value
