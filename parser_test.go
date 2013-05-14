@@ -76,6 +76,15 @@ func TestParseMap(t *T) {
 
 }
 
+func TestParseCharacter(t *T) {
+	assertValueEqual(parse(`\r`, t), Character('r'), t)
+	assertValueEqual(parse(`\5`, t), Character('5'), t)
+	assertValueEqual(parse(`\space`, t), Character(' '), t)
+	assertValueEqual(parse(`\return`, t), Character('\r'), t)
+	assertValueEqual(parse(`\newline`, t), Character('\n'), t)
+	assertValueEqual(parse(`\tab`, t), Character('\t'), t)
+}
+
 func TestParseString(t *T) {
 	val := parse(`""`, t)
 	if val == nil || !val.Equals(String("")) {
@@ -104,7 +113,7 @@ func TestParse(t *T) {
 		Vector{},
 		new(List),
 		String(""),
-		Vector{},
+		Vector{Character('x'), Character('\n')},
 		Map{},
 		Set{}.Insert(String("set")),
 		Map{String("key"): String("value")},
@@ -118,7 +127,7 @@ func TestParse(t *T) {
 	actual := parse(`
 	("abc" ( "spaced" )
 	    ["vec"( "an"	"inner""list",)]
-		(),[]()""[]
+		(),[]()""[\x \newline]
 		{}#{"set"}
 		{"key" "value"}
 		{"key" "value" :key2 (:value)}

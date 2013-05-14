@@ -6,9 +6,18 @@
 /\(/					{ return tOpenParen 	}
 /\)/					{ return tCloseParen	}
 /#/						{ return tOctothorpe	}
+/\\newline/				{ lval.v = types.Character('\n'); return tCharacter }
+/\\return/				{ lval.v = types.Character('\r'); return tCharacter }
+/\\tab/					{ lval.v = types.Character('\t'); return tCharacter }
+/\\space/				{ lval.v = types.Character(' ');  return tCharacter }
+/\\[a-zA-Z0-9]/			{
+							s := yylex.Text()[1:]
+							ch, _, _ := strings.NewReader(s).ReadRune()
+							lval.v = types.Character(ch)
+							return tCharacter
+						}
 /:[a-zA-Z][a-zA-Z0-9]*/ {
-							s := yylex.Text()
-							lval.v = types.Keyword(s[1:len(s)])
+							lval.v = types.Keyword(yylex.Text()[1:])
 							return tKeyword
 						}
 /"(\\.|[^"\\])*"/   	{

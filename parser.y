@@ -22,7 +22,7 @@ func init() {
 %token tOpenParen tCloseParen
 %token tOpenBrace tCloseBrace
 %token tOctothorpe
-%token tString tKeyword
+%token tString tKeyword tCharacter
 %token tWhitespace
 
 %% 
@@ -37,6 +37,7 @@ value
 	| set
 	| map
 	| keyword
+	| character
 	;
 
 ws
@@ -56,6 +57,10 @@ values
 	| values ws✳ value ws✳ {
 		$1.v.(*types.List).Insert($3.v)
 	  }
+	;
+
+character
+	: tCharacter
 	;
 
 keyword

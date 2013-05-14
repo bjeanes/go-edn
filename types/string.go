@@ -35,3 +35,24 @@ func (this Keyword) String() string {
 
 // Character represents an EDN character: \a, \b, \c, \newline, etc...
 type Character rune // TODO: possibly move out of string file
+
+// Equals compares the Character to another Value for equality.
+func (this Character) Equals(other Value) bool {
+	return this == other
+}
+
+// String returns the EDN string representation of the Character.
+func (this Character) String() string {
+	var str string
+	switch rune(this) {
+	case '\t':
+		str = "tab"
+	case '\r':
+		str = "return"
+	case '\n':
+		str = "newline"
+	default:
+		str = string(this)
+	}
+	return fmt.Sprintf("\\%s", str)
+}
