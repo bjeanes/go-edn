@@ -30,7 +30,7 @@ func ParseReader(reader io.Reader) (val types.Value, err error) {
 		}
 	}()
 
-	lexer := NewLexer(reader)
+	lexer := newLexer(reader)
 	if yyParse(lexer) == 0 {
 		val = lastResult
 	} else {

@@ -527,17 +527,17 @@ func newFrame(in *bufio.Reader, index int) *frame {
 	return f
 }
 
-type Lexer []*frame
+type lexer []*frame
 
-func NewLexer(in io.Reader) Lexer {
+func newLexer(in io.Reader) lexer {
 	stack := make([]*frame, 0, 4)
 	stack = append(stack, newFrame(bufio.NewReader(in), 0))
 	return stack
 }
-func (stack Lexer) isDone() bool {
+func (stack lexer) isDone() bool {
 	return 1 == len(stack) && stack[0].atEOF
 }
-func (stack Lexer) nextAction() int {
+func (stack lexer) nextAction() int {
 	c := stack[len(stack)-1]
 	for {
 		if c.atEOF {
@@ -595,22 +595,22 @@ func (stack Lexer) nextAction() int {
 	}
 	panic("unreachable")
 }
-func (stack Lexer) push(index int) Lexer {
+func (stack lexer) push(index int) lexer {
 	c := stack[len(stack)-1]
 	return append(stack,
 		newFrame(bufio.NewReader(strings.NewReader(c.text)), index))
 }
-func (stack Lexer) pop() Lexer {
+func (stack lexer) pop() lexer {
 	return stack[:len(stack)-1]
 }
-func (stack Lexer) Text() string {
+func (stack lexer) Text() string {
 	c := stack[len(stack)-1]
 	return c.text
 }
-func (yylex Lexer) Error(e string) {
+func (yylex lexer) Error(e string) {
 	panic(e)
 }
-func (yylex Lexer) Lex(lval *yySymType) int {
+func (yylex lexer) Lex(lval *yySymType) int {
 	for !yylex.isDone() {
 		switch yylex.nextAction() {
 		case -1:

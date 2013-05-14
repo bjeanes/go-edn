@@ -10,6 +10,10 @@ lexer:
 	nex < lexer.nn > lexer.nn.go
 	go fmt lexer.nn.go
 
+	# Make "Lexer" private by renaming it... :S
+	sed  -i '' 's:Lexer:lexer:g' lexer.nn.go
+	sed  -i '' 's:Newlexer:newLexer:g' lexer.nn.go
+
 parser:
 	rm -f parser.y.go
 	go tool yacc -o parser.y.go parser.y
