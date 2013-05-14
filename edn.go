@@ -1,4 +1,3 @@
-// An EDN (http://edn-format.org) parser for Go.
 package edn
 
 import (
