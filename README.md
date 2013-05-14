@@ -28,6 +28,9 @@ An [EDN][edn] parser for Go.
 
 ## Building
 
+**Note:** Development on this library is done against Go 1.1. In particular,
+Go 1.0's YACC differs from Go 1.1's YACC with regards to how `fmt` is imported.
+
 The lexer is generated with [nex][nex] 
 and the parser is generated with [Go's YACC tool][yacc].
 
