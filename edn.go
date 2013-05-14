@@ -39,3 +39,9 @@ func ParseReader(reader io.Reader) (val types.Value, err error) {
 
 	return
 }
+
+// DumpString accepts any EDN value and will return the EDN string 
+// representation.
+func DumpString(value types.Value) string {
+	return value.String()
+}
