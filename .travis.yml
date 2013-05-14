@@ -3,4 +3,4 @@ install:
 - env
 - go env
 - make get-deps
-script: PATH="$PATH:`go env GOPATH`/bin:`go env GOROOT`/bin" make
+script: PATH="$PATH:`go env GOPATH`/bin:`go env GOROOT`/bin" make test
