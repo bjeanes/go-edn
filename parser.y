@@ -6,11 +6,11 @@ If this file is not parser.y, it was generated from parser.y and
 should not be edited directly.
 */
 
-import . "github.com/bjeanes/go-edn/types"
+import "github.com/bjeanes/go-edn/types"
 
 
 // Eww... global state. TODO: how else to get actual data out of from yyParse?
-var lastResult Value
+var lastResult types.Value
 
 func init() {
 	//yyDebug = 4
@@ -18,7 +18,7 @@ func init() {
 %}
 
 %union { 
-	v Value
+	v types.Value
 } 
 
 %token tOpenBracket tCloseBracket
@@ -30,7 +30,7 @@ func init() {
 
 %% 
 input /* somebody help me not have to do this: */
-	: ws✳ value ws✳ { lastResult = Value($2.v) }
+	: ws✳ value ws✳ { lastResult = types.Value($2.v) }
 	;
 
 value
@@ -55,9 +55,9 @@ ws✳
 	| ws＋
 
 values
-	: ws✳ { $$.v = Value(new(List))}
+	: ws✳ { $$.v = types.Value(new(types.List))}
 	| values ws✳ value ws✳ {
-		$1.v.(*List).Insert($3.v)
+		$1.v.(*types.List).Insert($3.v)
 	  }
 	;
 
@@ -71,12 +71,16 @@ string
 
 set
 	: tOctothorpe tOpenBrace values tCloseBrace
-	  { $$.v = Sequence(Set{}).Into(Sequence($3.v.(*List))) }
+	  { 
+	  	set := types.Sequence(types.Set{})
+	  	values := types.Sequence($3.v.(*types.List))
+	  	$$.v = set.Into(values)
+	  }
 	;
 
 map
 	: tOpenBrace tCloseBrace
-	  { $$.v = Map{} }
+	  { $$.v = types.Map{} }
 	;
 
 list
@@ -84,6 +88,11 @@ list
 	;
 
 vector
-	: tOpenBracket values tCloseBracket { $$.v = Sequence(Vector{}).Into(Sequence($2.v.(*List))) }
+	: tOpenBracket values tCloseBracket 
+	  {
+	  	vec := types.Sequence(types.Vector{})
+	  	values := types.Sequence($2.v.(*types.List))
+		$$.v = vec.Into(values)
+	  }
 	;
 %%

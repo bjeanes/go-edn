@@ -9,11 +9,11 @@ If this file is not parser.y, it was generated from parser.y and
 should not be edited directly.
 */
 
-import . "github.com/bjeanes/go-edn/types"
+import "github.com/bjeanes/go-edn/types"
 
 
 // Eww... global state. TODO: how else to get actual data out of from yyParse?
-var lastResult Value
+var lastResult types.Value
 
 func init() {
 	//yyDebug = 4
@@ -22,7 +22,7 @@ func init() {
 //line parser.y:20
 type yySymType struct {
 	yys int 
-	v Value
+	v types.Value
 }
 
 const tOpenBracket = 57346
@@ -54,7 +54,7 @@ const yyEofCode = 1
 const yyErrCode = 2
 const yyMaxDepth = 200
 
-//line parser.y:89
+//line parser.y:98
 
 
 //line yacctab:1
@@ -357,27 +357,35 @@ yydefault:
 
 	case 1:
 		//line parser.y:33
-		{ lastResult = Value(yyS[yypt-1].v) }
+		{ lastResult = types.Value(yyS[yypt-1].v) }
 	case 13:
 		//line parser.y:58
-		{ yyVAL.v = Value(new(List))}
+		{ yyVAL.v = types.Value(new(types.List))}
 	case 14:
 		//line parser.y:59
 		{
-			yyS[yypt-3].v.(*List).Insert(yyS[yypt-1].v)
+			yyS[yypt-3].v.(*types.List).Insert(yyS[yypt-1].v)
 		  }
 	case 17:
 		//line parser.y:74
-		{ yyVAL.v = Sequence(Set{}).Into(Sequence(yyS[yypt-1].v.(*List))) }
+		{ 
+		  	set := types.Sequence(types.Set{})
+		  	values := types.Sequence(yyS[yypt-1].v.(*types.List))
+		  	yyVAL.v = set.Into(values)
+		  }
 	case 18:
-		//line parser.y:79
-		{ yyVAL.v = Map{} }
-	case 19:
 		//line parser.y:83
+		{ yyVAL.v = types.Map{} }
+	case 19:
+		//line parser.y:87
 		{ yyVAL.v = yyS[yypt-1].v }
 	case 20:
-		//line parser.y:87
-		{ yyVAL.v = Sequence(Vector{}).Into(Sequence(yyS[yypt-1].v.(*List))) }
+		//line parser.y:92
+		{
+		  	vec := types.Sequence(types.Vector{})
+		  	values := types.Sequence(yyS[yypt-1].v.(*types.List))
+			yyVAL.v = vec.Into(values)
+		  }
 	}
 	goto yystack /* stack new state and value */
 }

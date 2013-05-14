@@ -1,6 +1,6 @@
 package edn
 
-import . "github.com/bjeanes/go-edn/types"
+import "github.com/bjeanes/go-edn/types"
 import (
 	"bufio"
 	"io"
@@ -649,13 +649,13 @@ func (yylex Lexer) Lex(lval *yySymType) int {
 		case 8: //:[a-zA-Z][a-zA-Z0-9]*/
 			{
 				s := yylex.Text()
-				lval.v = Keyword(s[1:len(s)])
+				lval.v = types.Keyword(s[1:len(s)])
 				return tKeyword
 			}
 		case 9: //"(\\.|[^"\\])*"/
 			{
 				s := yylex.Text()
-				lval.v = String(s[1 : len(s)-1])
+				lval.v = types.String(s[1 : len(s)-1])
 				return tString
 			}
 		case 10: //./
