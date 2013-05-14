@@ -120,6 +120,7 @@ func TestParse(t *T) {
 		Vector{Character('x'), Character('\n')},
 		Map{},
 		Set{}.Insert(String("set")),
+		Value(nil),
 		Map{String("key"): String("value")},
 		Map{
 			String("key"):   String("value"),
@@ -132,7 +133,7 @@ func TestParse(t *T) {
 	("abc" ( "spaced" )
 	    ["vec"( "an"	"inner""list",)]
 		(),[]()""[\x \newline]
-		{}#{"set"}
+		{}#{"set"} nil
 		{"key" "value"}
 		{"key" "value" :key2 (:value)}
 		:key

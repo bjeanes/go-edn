@@ -1,9 +1,6 @@
 package types
 
-import (
-	"bytes"
-	"reflect"
-)
+import "reflect"
 
 // Set represents an EDN set: #{1 2 3}
 type Set map[Value]bool
@@ -24,20 +21,7 @@ func (this Set) Equals(other Value) bool {
 
 // String returns the EDN string representation of the Set.
 func (this Set) String() string {
-	var buffer bytes.Buffer
-	buffer.WriteString("#{")
-
-	i := 0
-	for k, _ := range this {
-		i++
-		buffer.WriteString(k.String())
-		if i < len(this) {
-			buffer.WriteString(" ")
-		}
-	}
-
-	buffer.WriteString("}")
-	return buffer.String()
+	return collectionString("#{", this, "}")
 }
 
 //////// Sequence interface:

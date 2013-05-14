@@ -15,6 +15,9 @@ func (this Map) Equals(other Value) bool {
 
 // String returns the EDN string representation of the Map.
 func (this Map) String() string {
+	// TODO use collectionString("{", this, "}")
+	//      Just need to figure make it meet Sequence interface
+
 	var buffer bytes.Buffer
 	buffer.WriteString("{")
 

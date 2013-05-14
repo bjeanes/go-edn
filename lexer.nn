@@ -6,6 +6,7 @@
 /\(/					{ return tOpenParen 	}
 /\)/					{ return tCloseParen	}
 /#/						{ return tOctothorpe	}
+/nil/					{ return tNil }
 /\\newline/				{ lval.v = types.Character('\n'); return tCharacter }
 /\\return/				{ lval.v = types.Character('\r'); return tCharacter }
 /\\tab/					{ lval.v = types.Character('\t'); return tCharacter }

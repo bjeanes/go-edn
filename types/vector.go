@@ -1,9 +1,6 @@
 package types
 
-import (
-	"bytes"
-	"reflect"
-)
+import "reflect"
 
 // Vector represents an EDN vector: [1 2 3]
 type Vector []Value
@@ -17,18 +14,8 @@ func (this Vector) Equals(other Value) bool {
 
 // String returns the EDN string representation of the Vector.
 func (this Vector) String() string {
-	var buffer bytes.Buffer
-	buffer.WriteString("[")
+	return collectionString("[", this, "]")
 
-	for i, val := range this {
-		buffer.WriteString(val.String())
-		if i < len(this)-1 {
-			buffer.WriteString(" ")
-		}
-	}
-
-	buffer.WriteString("]")
-	return buffer.String()
 }
 
 //////// Sequence interface:

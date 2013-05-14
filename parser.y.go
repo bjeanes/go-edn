@@ -33,6 +33,7 @@ const tString = 57353
 const tKeyword = 57354
 const tCharacter = 57355
 const tWhitespace = 57356
+const tNil = 57357
 
 var yyToknames = []string{
 	"tOpenBracket",
@@ -46,6 +47,7 @@ var yyToknames = []string{
 	"tKeyword",
 	"tCharacter",
 	"tWhitespace",
+	"tNil",
 }
 var yyStatenames = []string{}
 
@@ -53,7 +55,7 @@ const yyEofCode = 1
 const yyErrCode = 2
 const yyMaxDepth = 200
 
-//line parser.y:112
+//line parser.y:118
 
 
 //line yacctab:1
@@ -61,68 +63,68 @@ var yyExca = []int{
 	-1, 1,
 	1, -1,
 	-2, 0,
-	-1, 35,
-	9, 21,
-	-2, 12,
+	-1, 37,
+	9, 23,
+	-2, 13,
 }
 
-const yyNprod = 27
+const yyNprod = 29
 const yyPrivate = 57344
 
 var yyTokenNames []string
 var yyStates []string
 
-const yyLast = 53
+const yyLast = 56
 
 var yyAct = []int{
 
-	24, 2, 6, 5, 23, 26, 15, 22, 14, 31,
-	18, 34, 17, 16, 19, 20, 37, 27, 5, 28,
-	25, 5, 30, 3, 29, 33, 29, 4, 21, 5,
-	35, 32, 36, 29, 38, 13, 39, 40, 12, 15,
-	11, 14, 41, 18, 10, 17, 16, 19, 20, 9,
-	8, 7, 1,
+	26, 2, 6, 5, 25, 28, 16, 24, 15, 29,
+	19, 36, 18, 17, 20, 21, 33, 22, 39, 3,
+	30, 27, 32, 5, 23, 5, 31, 35, 31, 5,
+	4, 14, 37, 34, 38, 31, 40, 13, 41, 42,
+	12, 16, 11, 15, 43, 19, 10, 18, 17, 20,
+	21, 9, 22, 8, 7, 1,
 }
 var yyPact = []int{
 
-	-11, -1000, 35, -1000, -11, -1000, -11, -1000, -1000, -1000,
-	-1000, -1000, -1000, -1000, -11, -11, -1000, -3, -11, -1000,
-	-1000, -1000, -1000, 15, -1000, 4, -11, 2, -1000, 35,
-	-1000, -1000, 7, -11, -1000, -11, -11, -1000, -1000, 35,
-	-1000, -1000,
+	-11, -1000, 37, -1000, -11, -1000, -11, -1000, -1000, -1000,
+	-1000, -1000, -1000, -1000, -1000, -11, -11, -1000, -3, -11,
+	-1000, -1000, -1000, -1000, -1000, 15, -1000, 11, -11, 2,
+	-1000, 37, -1000, -1000, 9, -11, -1000, -11, -11, -1000,
+	-1000, 37, -1000, -1000,
 }
 var yyPgo = []int{
 
-	0, 52, 0, 2, 51, 50, 49, 44, 40, 38,
-	35, 27, 23, 4, 25, 17,
+	0, 55, 0, 2, 54, 53, 51, 46, 42, 40,
+	37, 31, 30, 19, 4, 27, 9,
 }
 var yyR1 = []int{
 
-	0, 1, 3, 3, 3, 3, 3, 3, 3, 11,
-	12, 12, 2, 2, 13, 13, 10, 9, 6, 7,
-	14, 14, 15, 15, 8, 4, 5,
+	0, 1, 3, 3, 3, 3, 3, 3, 3, 3,
+	12, 13, 13, 2, 2, 14, 14, 11, 10, 9,
+	6, 7, 15, 15, 16, 16, 8, 4, 5,
 }
 var yyR2 = []int{
 
 	0, 3, 1, 1, 1, 1, 1, 1, 1, 1,
-	1, 2, 0, 1, 1, 4, 1, 1, 1, 4,
-	3, 1, 1, 3, 3, 3, 3,
+	1, 1, 2, 0, 1, 1, 4, 1, 1, 1,
+	1, 4, 3, 1, 1, 3, 3, 3, 3,
 }
 var yyChk = []int{
 
-	-1000, -1, -2, -12, -11, 14, -3, -4, -5, -6,
-	-7, -8, -9, -10, 6, 4, 11, 10, 8, 12,
-	13, -12, -2, -13, -2, -13, 8, -15, -2, -2,
-	7, 5, -13, -14, 9, -3, -3, 9, -2, -2,
-	-2, -3,
+	-1000, -1, -2, -13, -12, 14, -3, -4, -5, -6,
+	-7, -8, -9, -10, -11, 6, 4, 11, 10, 8,
+	12, 13, 15, -13, -2, -14, -2, -14, 8, -16,
+	-2, -2, 7, 5, -14, -15, 9, -3, -3, 9,
+	-2, -2, -2, -3,
 }
 var yyDef = []int{
 
-	12, -2, 0, 13, 10, 9, 12, 2, 3, 4,
-	5, 6, 7, 8, 12, 12, 18, 0, 12, 17,
-	16, 11, 1, 12, 14, 12, 12, 0, 22, 0,
-	25, 26, 12, 12, 24, -2, 12, 19, 23, 0,
-	15, 20,
+	13, -2, 0, 14, 11, 10, 13, 2, 3, 4,
+	5, 6, 7, 8, 9, 13, 13, 20, 0, 13,
+	19, 18, 17, 12, 1, 13, 15, 13, 13, 0,
+	24, 0, 27, 28, 13, 13, 26, -2, 13, 21,
+	25, 0, 16, 22,
 }
 var yyTok1 = []int{
 
@@ -131,7 +133,7 @@ var yyTok1 = []int{
 var yyTok2 = []int{
 
 	2, 3, 4, 5, 6, 7, 8, 9, 10, 11,
-	12, 13, 14,
+	12, 13, 14, 15,
 }
 var yyTok3 = []int{
 	0,
@@ -363,45 +365,48 @@ yydefault:
 	switch yynt {
 
 	case 1:
-		//line parser.y:30
+		//line parser.y:31
 		{ result.v = yyS[yypt-1].v }
-	case 14:
-		//line parser.y:56
-		{ yyVAL.v = types.Value(new(types.List))}
 	case 15:
-		//line parser.y:57
+		//line parser.y:58
+		{ yyVAL.v = types.Value(new(types.List))}
+	case 16:
+		//line parser.y:59
 		{
 			yyS[yypt-3].v.(*types.List).Insert(yyS[yypt-1].v)
 		  }
-	case 19:
-		//line parser.y:76
+	case 17:
+		//line parser.y:65
+		{ yyVAL.v = types.Value(nil) }
+	case 21:
+		//line parser.y:82
 		{ 
 		  	set := types.Sequence(types.Set{})
 		  	values := types.Sequence(yyS[yypt-1].v.(*types.List))
 		  	yyVAL.v = set.Into(values)
 		  }
-	case 20:
-		//line parser.y:84
-		{ yyVAL.k = yyS[yypt-2].v; yyVAL.v = yyS[yypt-0].v }
-	case 21:
-		//line parser.y:85
-		{ yylex.Error("Map literal must contain an even number of forms") }
 	case 22:
-		//line parser.y:89
-		{ yyVAL.v = types.Map{} }
+		//line parser.y:90
+		{ yyVAL.k = yyS[yypt-2].v; yyVAL.v = yyS[yypt-0].v }
 	case 23:
 		//line parser.y:91
+		{ yylex.Error("Map literal must contain an even number of forms") }
+	case 24:
+		//line parser.y:95
+		{ yyVAL.v = types.Map{} }
+	case 25:
+		//line parser.y:97
 		{
 		  	yyS[yypt-2].v.(types.Map)[yyS[yypt-1].k] = yyS[yypt-1].v
 		  }
-	case 24:
-		//line parser.y:97
-		{ yyVAL = yyS[yypt-1] }
-	case 25:
-		//line parser.y:101
-		{ yyVAL = yyS[yypt-1] }
 	case 26:
-		//line parser.y:106
+		//line parser.y:103
+		{ yyVAL = yyS[yypt-1] }
+	case 27:
+		//line parser.y:107
+		{ yyVAL = yyS[yypt-1] }
+	case 28:
+		//line parser.y:112
 		{
 		  	vec := types.Sequence(types.Vector{})
 		  	values := types.Sequence(yyS[yypt-1].v.(*types.List))

@@ -24,6 +24,7 @@ func init() {
 %token tOctothorpe
 %token tString tKeyword tCharacter
 %token tWhitespace
+%token tNil
 
 %% 
 input /* somebody help me not have to do this: */
@@ -38,6 +39,7 @@ value
 	| map
 	| keyword
 	| character
+	| nil
 	;
 
 ws
@@ -57,6 +59,10 @@ values
 	| values ws✳ value ws✳ {
 		$1.v.(*types.List).Insert($3.v)
 	  }
+	;
+
+nil
+	: tNil { $$.v = types.Value(nil) }
 	;
 
 character

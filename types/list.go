@@ -1,7 +1,6 @@
 package types
 
 import (
-	"bytes"
 	linked "container/list"
 	"reflect"
 )
@@ -30,18 +29,7 @@ func (this *List) Equals(other Value) bool {
 
 // String returns the EDN string representation of the List.
 func (this *List) String() string {
-	var buffer bytes.Buffer
-	buffer.WriteString("(")
-
-	this.Each(func(item Value, i int) {
-		buffer.WriteString(item.String())
-		if i+1 < this.Length() {
-			buffer.WriteString(" ")
-		}
-	})
-
-	buffer.WriteString(")")
-	return buffer.String()
+	return collectionString("(", this, ")")
 }
 
 //////// Sequence interface:
@@ -51,7 +39,8 @@ func (this *List) String() string {
 // The provided function is passed the item and its index: f(item, index).
 func (this *List) Each(f func(Value, int)) {
 	for el, i := this.raw().Front(), 0; el != nil; el, i = el.Next(), i+1 {
-		f(el.Value.(Value), i)
+		v, _ := el.Value.(Value)
+		f(v, i)
 	}
 }
 
