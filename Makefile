@@ -22,9 +22,8 @@ parser:
 	sed -i '' 's:yyParse(yylex yyLexer) int:yyParse(yylex yyLexer, result *yySymType) int:' parser.y.go
 
 get-deps:
-	go get -d -v -u github.com/blynn/nex
-	go install github.com/blynn/nex
-	go install github.com/bjeanes/go-edn/types
+	go get -d -v -u github.com/blynn/nex github.com/bjeanes/go-edn/types
+	go install github.com/blynn/nex 
 
 clean:
 	rm -rf *.output *.nn.go *.y.go
