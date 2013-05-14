@@ -14,6 +14,7 @@ func init() {
 %}
 
 %union { 
+	k types.Value
 	v types.Value
 } 
 
@@ -74,13 +75,25 @@ set
 	  }
 	;
 
+key_value
+	: value ws✳ value { $$.k = $1.v; $$.v = $3.v }
+	| value { yylex.Error("Map literal must contain an even number of forms") }
+	;
+
+key_values
+	: ws✳ { $$.v = types.Map{} }
+	| key_values key_value ws✳
+	  {
+	  	$1.v.(types.Map)[$2.k] = $2.v
+	  }
+	;
+
 map
-	: tOpenBrace tCloseBrace
-	  { $$.v = types.Map{} }
+	: tOpenBrace key_values tCloseBrace { $$ = $2 }
 	;
 
 list
-	: tOpenParen values tCloseParen { $$.v = $2.v }
+	: tOpenParen values tCloseParen { $$ = $2 }
 	;
 
 vector

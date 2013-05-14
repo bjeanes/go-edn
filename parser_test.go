@@ -64,6 +64,18 @@ func TestParseVector(t *T) {
 	)
 }
 
+func TestParseMap(t *T) {
+	_, err := ParseString("{:x}")
+
+	if err.Error() != "Error: Map literal must contain an even number of forms" {
+		t.Error("Expected parsing map with single item to fail")
+	}
+
+	assertValueEqual(parse(`{}`, t), Map{}, t)
+	assertValueEqual(parse(`{:a :b}`, t), Map{Keyword("a"): Keyword("b")}, t)
+
+}
+
 func TestParseString(t *T) {
 	val := parse(`""`, t)
 	if val == nil || !val.Equals(String("")) {
@@ -95,6 +107,11 @@ func TestParse(t *T) {
 		Vector{},
 		Map{},
 		Set{}.Insert(String("set")),
+		Map{String("key"): String("value")},
+		Map{
+			String("key"):   String("value"),
+			Keyword("key2"): new(List).Insert(Keyword("value")),
+		},
 		Keyword("key"),
 	)
 
@@ -103,6 +120,8 @@ func TestParse(t *T) {
 	    ["vec"( "an"	"inner""list",)]
 		(),[]()""[]
 		{}#{"set"}
+		{"key" "value"}
+		{"key" "value" :key2 (:value)}
 		:key
 	)
 	`, t)
