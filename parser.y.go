@@ -1,13 +1,13 @@
 
 //line parser.y:2
 package edn 
-
+import __yyfmt__ "fmt"
+//line parser.y:2
+		
 /*
 If this file is not parser.y, it was generated from parser.y and
 should not be edited directly.
 */
-
-import "fmt"
 
 // Eww... global state. TODO: how else to get actual data out of from yyParse?
 var lastResult Value
@@ -16,7 +16,7 @@ func init() {
 	//yyDebug = 4
 }
 
-//line parser.y:19
+//line parser.y:17
 type yySymType struct {
 	yys int 
 	v Value
@@ -51,7 +51,7 @@ const yyEofCode = 1
 const yyErrCode = 2
 const yyMaxDepth = 200
 
-//line parser.y:88
+//line parser.y:86
 
 //line yacctab:1
 var yyExca = []int{
@@ -140,12 +140,13 @@ type yyLexer interface {
 const yyFlag = -1000
 
 func yyTokname(c int) string {
-	if c > 0 && c <= len(yyToknames) {
-		if yyToknames[c-1] != "" {
-			return yyToknames[c-1]
+	// 4 is TOKSTART above
+	if c >= 4 && c-4 < len(yyToknames) {
+		if yyToknames[c-4] != "" {
+			return yyToknames[c-4]
 		}
 	}
-	return fmt.Sprintf("tok-%v", c)
+	return __yyfmt__.Sprintf("tok-%v", c)
 }
 
 func yyStatname(s int) string {
@@ -154,7 +155,7 @@ func yyStatname(s int) string {
 			return yyStatenames[s]
 		}
 	}
-	return fmt.Sprintf("state-%v", s)
+	return __yyfmt__.Sprintf("state-%v", s)
 }
 
 func yylex1(lex yyLexer, lval *yySymType) int {
@@ -187,7 +188,7 @@ out:
 		c = yyTok2[1] /* unknown char */
 	}
 	if yyDebug >= 3 {
-		fmt.Printf("lex %U %s\n", uint(char), yyTokname(c))
+		__yyfmt__.Printf("lex %U %s\n", uint(char), yyTokname(c))
 	}
 	return c
 }
@@ -214,7 +215,7 @@ ret1:
 yystack:
 	/* put a state and value onto the stack */
 	if yyDebug >= 4 {
-		fmt.Printf("char %v in %v\n", yyTokname(yychar), yyStatname(yystate))
+		__yyfmt__.Printf("char %v in %v\n", yyTokname(yychar), yyStatname(yystate))
 	}
 
 	yyp++
@@ -283,8 +284,8 @@ yydefault:
 			yylex.Error("syntax error")
 			Nerrs++
 			if yyDebug >= 1 {
-				fmt.Printf("%s", yyStatname(yystate))
-				fmt.Printf("saw %s\n", yyTokname(yychar))
+				__yyfmt__.Printf("%s", yyStatname(yystate))
+				__yyfmt__.Printf("saw %s\n", yyTokname(yychar))
 			}
 			fallthrough
 
@@ -303,7 +304,7 @@ yydefault:
 
 				/* the current p has no shift on "error", pop stack */
 				if yyDebug >= 2 {
-					fmt.Printf("error recovery pops state %d\n", yyS[yyp].yys)
+					__yyfmt__.Printf("error recovery pops state %d\n", yyS[yyp].yys)
 				}
 				yyp--
 			}
@@ -312,7 +313,7 @@ yydefault:
 
 		case 3: /* no shift yet; clobber input char */
 			if yyDebug >= 2 {
-				fmt.Printf("error recovery discards %s\n", yyTokname(yychar))
+				__yyfmt__.Printf("error recovery discards %s\n", yyTokname(yychar))
 			}
 			if yychar == yyEofCode {
 				goto ret1
@@ -324,7 +325,7 @@ yydefault:
 
 	/* reduction by production yyn */
 	if yyDebug >= 2 {
-		fmt.Printf("reduce %v in:\n\t%v\n", yyn, yyStatname(yystate))
+		__yyfmt__.Printf("reduce %v in:\n\t%v\n", yyn, yyStatname(yystate))
 	}
 
 	yynt := yyn
@@ -351,27 +352,27 @@ yydefault:
 	switch yynt {
 
 	case 1:
-		//line parser.y:32
+		//line parser.y:30
 		{ lastResult = Value(yyS[yypt-1].v) }
 	case 13:
-		//line parser.y:57
+		//line parser.y:55
 		{ yyVAL.v = Value(new(List))}
 	case 14:
-		//line parser.y:58
+		//line parser.y:56
 		{
 			yyS[yypt-3].v.(*List).raw().PushBack(yyS[yypt-1].v)
 		  }
 	case 17:
-		//line parser.y:73
+		//line parser.y:71
 		{ yyVAL.v = Sequence(Set{}).Into(Sequence(yyS[yypt-1].v.(*List))) }
 	case 18:
-		//line parser.y:78
+		//line parser.y:76
 		{ yyVAL.v = Map{} }
 	case 19:
-		//line parser.y:82
+		//line parser.y:80
 		{ yyVAL.v = yyS[yypt-1].v }
 	case 20:
-		//line parser.y:86
+		//line parser.y:84
 		{ yyVAL.v = Sequence(Vector{}).Into(Sequence(yyS[yypt-1].v.(*List))) }
 	}
 	goto yystack /* stack new state and value */

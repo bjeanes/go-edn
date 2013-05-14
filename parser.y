@@ -6,8 +6,6 @@ If this file is not parser.y, it was generated from parser.y and
 should not be edited directly.
 */
 
-import "fmt"
-
 // Eww... global state. TODO: how else to get actual data out of from yyParse?
 var lastResult Value
 
