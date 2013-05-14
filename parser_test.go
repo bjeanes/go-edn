@@ -1,7 +1,7 @@
 package edn
 
 import (
-	. "./types"
+	. "github.com/bjeanes/go-edn/types"
 	. "testing"
 )
 

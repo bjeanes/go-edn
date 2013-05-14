@@ -9,7 +9,7 @@ If this file is not parser.y, it was generated from parser.y and
 should not be edited directly.
 */
 
-import . "./types"
+import . "github.com/bjeanes/go-edn/types"
 
 
 // Eww... global state. TODO: how else to get actual data out of from yyParse?
@@ -55,6 +55,7 @@ const yyErrCode = 2
 const yyMaxDepth = 200
 
 //line parser.y:89
+
 
 //line yacctab:1
 var yyExca = []int{

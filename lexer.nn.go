@@ -1,6 +1,6 @@
 package edn
 
-import . "./types"
+import . "github.com/bjeanes/go-edn/types"
 import (
 	"bufio"
 	"io"

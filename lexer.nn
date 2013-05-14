@@ -24,7 +24,7 @@
 
 package edn
 
-import . "./types"
+import . "github.com/bjeanes/go-edn/types"
 
 func init() {
 	/* (this has to be in a func or lex doesn't write it out to final file)
