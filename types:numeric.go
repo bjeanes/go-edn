@@ -20,21 +20,21 @@ type Rational big.Rat
 type BigInt big.Int
 
 // Equals compares the Float to another Value for equality.
-func (f Float) Equals(v Value) bool {
-	return f == v
+func (this Float) Equals(other Value) bool {
+	return this == other
 }
 
 // String returns the EDN string representation of the Float.
-func (f Float) String() string {
-	return fmt.Sprintf("%f", float64(f))
+func (this Float) String() string {
+	return fmt.Sprintf("%f", float64(this))
 }
 
 // Equals compares the Int to another Value for equality.
-func (i Int) Equals(v Value) bool {
-	return i == v
+func (this Int) Equals(other Value) bool {
+	return this == other
 }
 
 // String returns the EDN string representation of the Int.
-func (i Int) String() string {
-	return fmt.Sprintf("%d", int64(i))
+func (this Int) String() string {
+	return fmt.Sprintf("%d", int64(this))
 }

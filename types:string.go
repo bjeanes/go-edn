@@ -8,13 +8,13 @@ import (
 type String string
 
 // Equals compares the String to another Value for equality.
-func (s String) Equals(v Value) bool {
-	return s == v
+func (this String) Equals(other Value) bool {
+	return this == other
 }
 
 // String returns the EDN string representation of the String.
-func (s String) String() string {
-	return fmt.Sprintf("%#v", string(s))
+func (this String) String() string {
+	return fmt.Sprintf("%#v", string(this))
 }
 
 // Keyword represents an EDN keyword: :foo/bar or :baz

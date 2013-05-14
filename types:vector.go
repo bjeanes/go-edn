@@ -11,18 +11,18 @@ type Vector []Value
 //////// Value interface:
 
 // Equals compares the Vector to another Value for equality.
-func (vec Vector) Equals(val Value) bool {
-	return reflect.DeepEqual(vec, val)
+func (this Vector) Equals(other Value) bool {
+	return reflect.DeepEqual(this, other)
 }
 
 // String returns the EDN string representation of the Vector.
-func (vec Vector) String() string {
+func (this Vector) String() string {
 	var buffer bytes.Buffer
 	buffer.WriteString("[")
 
-	for i, val := range vec {
+	for i, val := range this {
 		buffer.WriteString(val.String())
-		if i < len(vec)-1 {
+		if i < len(this)-1 {
 			buffer.WriteString(" ")
 		}
 	}

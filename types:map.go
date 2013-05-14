@@ -9,22 +9,22 @@ import (
 type Map map[Value]Value
 
 // Equals compares the Map to another Value for equality.
-func (m Map) Equals(v Value) bool {
-	return reflect.DeepEqual(m, v)
+func (this Map) Equals(other Value) bool {
+	return reflect.DeepEqual(this, other)
 }
 
 // String returns the EDN string representation of the Map.
-func (m Map) String() string {
+func (this Map) String() string {
 	var buffer bytes.Buffer
 	buffer.WriteString("{")
 
 	i := 0
-	for k, v := range m {
+	for k, v := range this {
 		i++
 		buffer.WriteString(k.String())
 		buffer.WriteString(" ")
 		buffer.WriteString(v.String())
-		if i < len(m) {
+		if i < len(this) {
 			buffer.WriteString(" ")
 		}
 	}

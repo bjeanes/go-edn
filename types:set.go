@@ -8,30 +8,30 @@ import (
 // Set represents an EDN set: #{1 2 3}
 type Set map[Value]bool
 
-// Insert adds a non-present Value into the Set. Adding an existing Value will
-// have no effect.
-func (s Set) Insert(v Value) Sequence {
-	s[v] = true
-	return s
+// Insert adds a non-present Value into the Set and returns the Set. Adding an
+// existing Value will have no effect.
+func (this Set) Insert(value Value) Sequence {
+	this[value] = true
+	return this
 }
 
 //////// Value interface:
 
 // Equals compares the Set to another Value for equality.
-func (s Set) Equals(v Value) bool {
-	return reflect.DeepEqual(s, v)
+func (this Set) Equals(other Value) bool {
+	return reflect.DeepEqual(this, other)
 }
 
 // String returns the EDN string representation of the Set.
-func (s Set) String() string {
+func (this Set) String() string {
 	var buffer bytes.Buffer
 	buffer.WriteString("#{")
 
 	i := 0
-	for k, _ := range s {
+	for k, _ := range this {
 		i++
 		buffer.WriteString(k.String())
-		if i < len(s) {
+		if i < len(this) {
 			buffer.WriteString(" ")
 		}
 	}
