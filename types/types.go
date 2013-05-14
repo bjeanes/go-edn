@@ -1,4 +1,4 @@
-package edn
+package types
 
 // Value is a generic interface to which all data returned by this library 
 // comply.

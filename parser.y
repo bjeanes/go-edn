@@ -6,6 +6,9 @@ If this file is not parser.y, it was generated from parser.y and
 should not be edited directly.
 */
 
+import . "./types"
+
+
 // Eww... global state. TODO: how else to get actual data out of from yyParse?
 var lastResult Value
 
@@ -54,7 +57,7 @@ ws✳
 values
 	: ws✳ { $$.v = Value(new(List))}
 	| values ws✳ value ws✳ {
-		$1.v.(*List).raw().PushBack($3.v)
+		$1.v.(*List).Insert($3.v)
 	  }
 	;
 

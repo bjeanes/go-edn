@@ -1,6 +1,7 @@
 package edn
 
 import (
+	. "./types"
 	"errors"
 	"fmt"
 	"io"

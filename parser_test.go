@@ -1,6 +1,7 @@
 package edn
 
 import (
+	. "./types"
 	. "testing"
 )
 
@@ -40,11 +41,10 @@ func TestParseList(t *T) {
 	val = parse(str, t)
 
 	l := new(List)
-	ll := l.raw()
-	ll.PushBack(new(List))
-	ll.PushBack(String("abc"))
-	ll.PushBack(Vector{})
-	ll.PushBack(String("def"))
+	l.Insert(new(List))
+	l.Insert(String("abc"))
+	l.Insert(Vector{})
+	l.Insert(String("def"))
 
 	if !l.Equals(val) {
 		t.Errorf("Expected %v, got %v", l, val)
@@ -54,9 +54,14 @@ func TestParseList(t *T) {
 func TestParseVector(t *T) {
 	assertValueEqual(parse(`[]`, t), Vector{}, t)
 	assertValueEqual(parse(`[[]]`, t), Vector{Vector{}}, t)
-	l := new(List)
-	l.raw().PushBack(String("abc"))
-	assertValueEqual(parse(`[[("abc")] "def"]`, t), Vector{Vector{l}, String("def")}, t)
+	assertValueEqual(parse(`[[("abc")] "def"]`, t),
+		Vector{
+			Vector{
+				new(List).Insert(String("abc")),
+			},
+			String("def"),
+		}, t,
+	)
 }
 
 func TestParseString(t *T) {
