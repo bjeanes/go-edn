@@ -20,6 +20,7 @@ func (this String) String() string {
 // Keyword represents an EDN keyword: :foo/bar or :baz
 type Keyword string
 
+// Equals compares the Keyword to another Value for equality.
 func (this Keyword) Equals(other Value) bool {
 	// NOTE: this will allow a Keyword to == a String.
 	// TODO: Make Keyword a struct (namespace + word) that
