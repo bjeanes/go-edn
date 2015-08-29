@@ -7,14 +7,14 @@ An [EDN][edn] parser for Go.
 **Note:** Development on this library is done against Go 1.1. In particular,
 Go 1.0's YACC differs from Go 1.1's YACC with regards to how `fmt` is imported.
 
-The lexer is generated with [nex][nex] 
+The lexer is generated with [nex][nex]
 and the parser is generated with [Go's YACC tool][yacc].
 
 In order to be compatible with `go get`<sup>\[[1][irc discussion]\]</sup>,
 which does not support a precompilation step<sup>\[[2][go build advice]\]</sup>
 the generated files are committed alongside the source files.
 
-The lexer and parser are re-created every time the project is made, which you 
+The lexer and parser are re-created every time the project is made, which you
 can simply do with:
 
 ```
@@ -25,8 +25,7 @@ This will also run the tests.
 
 ## License
 
-Not yet licensed, mostly out of laziness. If you want to make use of this 
-project today, just [contact me](mailto:me@bjeanes.com).
+MPL 2.0
 
 [edn]: https://github.com/edn-format/edn
 [nex]: http://www-cs-students.stanford.edu/~blynn/nex/
